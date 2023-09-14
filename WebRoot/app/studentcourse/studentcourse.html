@@ -1,0 +1,50 @@
+<div class="page-content-wrapper">
+	<div class="page-content" style="padding: 1px 0 0 1px;">
+		<div class="row">
+			<div class="col-md-12 col-xs-12 col-sm-12">	
+
+				<div class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-speech"></i>
+							<span class="caption-subject bold uppercase"> DANH SÁCH BÀI KIỂM TRA</span>
+							<!-- <span class="caption-helper">weekly stats...</span> -->
+						</div>
+						<div class="actions">
+							<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-2"></div>
+							<div class="col-md-8">
+								<div class="scroller" style="height:500px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+									<ul class="list-group" id="s_quiz">
+									  <li ng-repeat="q in quizzes" class="list-group-item"  style="margin-bottom: 10px;">
+									  	<div class="row">
+									  		<div class="col-md-6 bold" style="font-size: 15px">{{q.Name}}</div>
+									  		<div class="col-md-6" style="text-align:right;">
+									  			<div class="actions">
+													<a href="javascript:;" class="btn btn-default" ng-click="go_to_test(1002033)">
+														<i class="fa fa-play"></i></a>
+												</div>
+									  		</div>
+									  	</div>
+									  </li>
+									</ul> 
+								</div>
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+					</div>
+				</div>
+			</div>   
+		</div>
+	</div>	
+</div>
+
+
+<style type="text/css">
+	#s_quiz  li { background: #b9e5d1; }
+	#s_quiz  li:nth-child(odd) { background: #DDE7E3; }
+</style>

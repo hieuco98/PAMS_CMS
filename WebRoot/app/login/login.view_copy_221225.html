@@ -1,0 +1,127 @@
+
+<!-- <section id="page-title" class="page-title-background" style="background-image: url('assets/img/cover/slider-slide4.jpg')">
+	<div class="container">
+		
+	</div>
+</section> -->
+
+<section class="container-fluid container-fullw">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-3"></div>
+
+
+			<div class="col-md-6" >
+				<div ng-show = "!forgetPwd" ng-hide="loginWithCode" ng-init="forgetPwd=false">
+					<h2> Đăng nhập </h2>
+					<!-- BEGIN FORM Đăng nhập-->
+					<form role="form" class="horizontal-form margin-bottom-40" name="formLogin" ng-submit="clickLogin()">
+						<!-- 
+						<div class="form-group">
+							<span class="input-icon">
+								<i class="fa fa-user"></i>	
+								<select type="text"  class="form-control" data-ng-options="t.name for t in loginType"
+										data-ng-model="selectedLoginType" ng-change="changeLoginType(selectedLoginType)">
+										
+				   				</select>
+							</span>
+						</div>		
+						 -->
+						<div class="form-group">
+							<span class="input-icon">
+								<i class="fa fa-user"></i>							
+								<input type="text" placeholder="" class="form-control"
+								ng-model="modelName"
+								required>
+							</span>
+						</div>	
+						
+						<div class="form-group">
+							<span class="input-icon">
+								<i class="fa fa-key"></i>							
+								<input type="password" placeholder="" class="form-control"
+								ng-model="modelPwd"
+								ng-keyup="event=$event"
+								required>
+							</span>
+						</div>		
+						
+						
+						<button class="btn btn-primary margin-top-15 opacity-50 btn-block btn-scroll btn-scroll-top" type="submit"					
+							ng-disabled="!(formLogin.$valid && (!disabledLogin))">
+							<span> <i class="fa fa-arrow-right"></i> Đăng nhập</span>
+						</button>
+						<br>
+						
+						<a href ng-click="forgetPwd = !forgetPwd" >Quên mật khẩu?</a>
+						
+					</form>
+					<!-- END FORM Đăng nhập-->
+				</div>
+
+				<div ng-show = "forgetPwd" >
+					<h2> Quên mật khẩu? </h2>
+					<!-- BEGIN FORM QUên mật khẩu-->
+					<h6>Nhập tên tài khoản của bạn vào ô dưới đây và bấm "Yêu cầu gửi mã phục hồi tài khoản". Một mã phục hồi tài khoản sẽ được gửi tới email mà bạn đã đăng ký với hệ thống. Đăng nhập vào hệ thống với mã này và thay đổi mật khẩu của bạn. Mã có hiệu lực trong vòng 2 giờ.</h6>
+					<form role="form" class="horizontal-form margin-bottom-40" name="formForgetPwd" ng-submit="requestResetCode()">
+						<div class="form-group">
+							<span class="input-icon">
+								<i class="fa fa-user"></i>							
+								<input type="text" placeholder="" class="form-control"
+								ng-model="modelName"
+								required>
+							</span>
+						</div>			
+						<button class="btn btn-primary margin-top-15 opacity-0 btn-block btn-scroll btn-scroll-top fa-arrow-right animated fadeIn" type="submit" ng-click="forgetPwd = !forgetPwd">					
+							<!-- ng-disabled="!(formForgetPwd.$valid"> -->
+							<span>Yêu cầu gửi mã phục hồi tài khoản</span>
+						</button>
+						<br>
+						<a href ng-click="forgetPwd = !forgetPwd" >Đăng nhập</a>
+					</form>
+					<!-- END FORM Quên mật khẩu-->
+				</div>
+
+
+				<div ng-show = "loginWithCode" ng-init="loginWithCode = false">
+					<h2> Đăng nhập bằng mã tạm thời </h2>
+					<!-- BEGIN FORM QUên mật khẩu-->
+					<h6>Đăng nhập với mã đã được gửi tới email của bạn. Dùng mã này để đổi mật khẩu trong Hồ sơ người dùng. Mã có hiệu lực trong vòng 24h.</h6>
+					<form role="form" class="horizontal-form margin-bottom-40" name="formLoginWithCode" ng-submit="clickLoginWithCode()">
+						<div class="form-group">
+							<span class="input-icon">
+								<i class="fa fa-user"></i>							
+								<input type="text" placeholder="" class="form-control"
+								ng-model="modelName"
+								required>
+							</span>
+						</div>
+						<div class="form-group">
+							<span class="input-icon">
+								<i class="fa fa-key"></i>							
+								<input type="password" placeholder="" class="form-control"
+								ng-model="modelCode"
+								ng-keyup="event=$event"
+								required>
+							</span>
+						</div>			
+						<button class="btn btn-primary margin-top-15 opacity-0 btn-block btn-scroll btn-scroll-top fa-arrow-right animated fadeIn" type="submit">					
+							<!-- ng-disabled="!(formForgetPwd.$valid"> -->
+							<span>Đăng nhập bằng mã tạm thời</span>
+						</button>
+						<br>
+						<a href ng-click="loginWithCode = !loginWithCode" >Đăng nhập</a>
+					</form>
+					<!-- END FORM Quên mật khẩu-->
+				</div>
+
+				<!-- <div>
+					<span>Form forget pass, state : {{forgetPwd}} </span>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</section>
+
+

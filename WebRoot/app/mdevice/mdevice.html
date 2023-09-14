@@ -1,0 +1,495 @@
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+		
+		<div class="container-fluid container-fullw ">
+
+			<div class="row" >
+				<div class="col-md-12">
+				<div class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-calendar"></i>
+							<span class="caption-subject bold uppercase"> Chọn phòng học</span>
+							<span class="caption-helper"></span>
+						</div>
+						<div class="actions">
+							<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div id="" class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <span><label class="hidden-sm bold" for="capacity">
+                                        Kỳ học
+                                    </label></span>
+                                    <span><select id="capacity" name="capacity" class="form-control select_class"
+                                        ng-options="s.name for s in semesterList" ng-model="mSelectedSemester" ng-change="ChangeSemester(mSelectedSemester)">
+                                        <option></option>                       
+                                    </select></span>
+                                </div>
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <label class="hidden-sm bold" for="loc">Tòa nhà</label>
+                                    <select id="loc" name="loc" class="form-control select_class"
+                                        ng-options="s.name for s in campusLocations" ng-model="mSelectedBuild" ng-change="ChangeBuiding(mSelectedBuild)">
+                                        <option></option>                       
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <label class="hidden-sm bold" for="type">Tầng</label>
+                                    <select id="type" name="type" class="form-control select_class"
+                                        ng-options="s.name for s in floorList" ng-model="mSelectedFloor" ng-change="ChangeFloor(mSelectedFloor)">
+                                        <option></option>                       
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <span><label class="hidden-sm bold" for="capacity">
+                                        Phòng học
+                                    </label></span>
+                                    <span><select id="capacity" name="capacity" class="form-control select_class"
+                                        ng-options="s.name for s in roomList" ng-model="mSelectedRoom" ng-change="ChangeRoom(mSelectedRoom)">
+                                        <option></option>                       
+                                    </select></span>
+                                </div>
+                              
+                             
+                            
+                        </div>
+                        <div id="" class="row" style="padding-top: 10px; padding-right:20px">
+
+                            <!-- <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="findTimetableClass(mSelectedBuild,mSelectedRoom,findDate)" style="font-size:120%"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Tìm kiếm theo </button> -->
+                        <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="findTimetableClass(mSelectedBuild,mSelectedRoom,findDate,mSelectedSemester)" style="font-size:120%"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Tìm kiếm</button>
+                    </div>
+                      
+                    </div>
+
+                </div>
+				</div>
+            </div>
+			</div>
+			<div class="row" >
+				
+				<div class="col-md-12">
+					
+					<div class="portlet box blue">
+		       			<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+			            	<div class="caption">
+			                   	<i class="fa fa-info "></i>
+			                   	<span class="caption-subject bold uppercase">Danh sách các thiết bị </span>
+			               	</div>
+			               	<div class="actions">
+								
+			               		<button class="btn btn-info btn-login pull-right" 
+			               		ng-click="clickAddNewDevice()">Thêm thiết bị </button>
+								
+			                   	
+			               	</div>
+                              
+			           	</div>
+			           	
+						   <div class="portlet-body">
+							<div class="table-scrollable">
+								<table class="table table-striped table-bordered table-advance table-hover" ng-table="tableParamsDevice">
+							<thead>
+								<tr>
+									<th>
+										 </th>
+									<th>
+										 STT </th>
+									<th>
+										<i class="fa fa-qrcode"></i> Tên thiết bị </th>
+								
+										<th>
+											<i class="fa fa-qrcode"></i> Mã thiết bị </th>
+										<th>
+											<i class="fa fa-check-square-o "></i> Trạng thái </th>
+											<th>
+												<i class="fa fa-check-square-o "></i> Phòng </th>
+												<th>
+													<i class="fa fa-check-square-o "></i> thời gian bắt đầu sử dụng </th>
+													<th>
+														<i class="fa fa-check-square-o "></i> Nguồn dự án </th>
+														<th>
+															<i class="fa fa-check-square-o "></i> Người quản lý</th>
+													<!-- <th>
+												<i class="fa fa-check-square-o "></i> Xem chi tiết công việc </th> -->
+											</th>
+								</tr>
+							</thead>
+						
+							<tbody>
+								
+										<!-- <tr>
+											<td>Số kg mật đã mua : 100000kg</td>
+											<td>Số khách hàng bán mật : 3000</td>
+											<td> Các loại mật đã thu mua : Nhãn,vải,bạc hà</td>
+										</tr>					    -->
+								<tr ng-repeat="q in tableDisplayDevice">
+									<td width="5%" class="rowTd padding-right-0">
+										<a type=button class="btn-info btn-o btn-sm" uib-tooltip="Xem chi tiết"
+											ng-click="clickDeviceSelected(q)">
+											<i class="fa fa-check" ng-if="currentDeviceId==q.id"></i>
+											<i class="fa fa-circle-o" ng-if="currentDeviceId!=q.id"></i>
+										</a>
+									</td>
+									<td align="center">{{$index+1}}</td>
+									<td align="center">{{q.device_name}}</td>
+								
+
+								  <td align="center">{{q.device_code}} </td>
+								  <td align="center">{{q.state_name}}</td>
+								  <td align="center">{{q.class_name}}</td>
+							  
+
+								<td align="center">{{q.create_time}} </td>
+								<td align="center">{{q.project_source}}</td>
+								<td align="center">{{q.owner_name}}</td>
+							
+
+							  
+								 <!-- <td>
+												<a ng-click="clickGetInfoProcess(q.ID)" class="btn dark btn-sm btn-outline sbold uppercase">
+													<i class="fa fa-share"></i> Xem chi tiết </a>
+											</td> -->
+								 <td  style="font-size: 15px; color:red" value="Remove"
+								 ng-click="clickDeleteDevice(q.id)"> <i class="fa fa-trash" aria-hidden="true"> </i> Xóa</td>
+							 </tr>
+							   
+						</tbody>
+								</table>
+							</div>						
+							</div>
+			         </div>
+			          
+				 </div>
+				<div class="panel panel-white "  ng-show="isCreateNewDevice"> 
+					<div class="col-md-12">
+					<div class="portlet box green">
+		       			<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+			            	<div class="caption">
+			                   	<i class="fa fa-globe"></i>
+			                   	<span class="caption-subject bold uppercase">Thêm mới thiết bị</span>
+			               	</div>
+			               	<div class="actions">
+			                   
+			               	</div>
+			           	</div>
+			           	<div class="portlet-body">
+			           		
+							
+							<!-- <div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold">Full Name</h4>	
+								</div>
+								<div class="col-md-6">
+									<input type="text" class="form-control" 
+									placeholder="Họ và tên..." ng-model="userFullname">
+								</div>
+								
+							</div> -->
+							
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold">Tên thiết bị   </h4>	
+								</div>
+								<div class="col-md-6">
+									<input type="text" class="form-control" 
+									placeholder="Tên thiết bị " ng-model="DeviceName">
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold">Khu vực đặt</h4>	
+								</div>
+								<div class="col-md-6">
+								<span><label class="hidden-sm bold" for="capacity">
+									Phòng học
+								</label></span>
+								<span><select id="capacity" name="capacity" class="form-control select_class"
+									ng-options="s.name for s in ListClassroom" ng-model="mSelectedClass" ng-change="ChangeClass(mSelectedClass)">
+									<option></option>                       
+								</select></span>
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold">Nguồn dự án</h4>	
+								</div>
+								<div class="col-md-6">
+									<input type="Text" class="form-control" 
+									placeholder="Mô tả" ng-model="DeviceProjectSource">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold">Ngày hoạt động</h4>	
+								</div>
+								<div class="col-md-6">
+									<input type="date" class="form-control" 
+									placeholder="ngày hoạt động" ng-model="DeviceStartUsing">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2"><h4 class="bold">Người phụ trách :</h4></div>
+								
+								 <div class="col-md-6">
+									<!-- <input list="list_role" type="text" class="form-control" 
+									placeholder={{modelUserSelected.role}} ng-model="modelUserRole"> -->
+									<!-- <select type="text"  class="form-control" 
+								data-ng-options="t.name for t in userType"
+								data-ng-model="modelUserRole"> -->
+								<select id="capacity" name="capacity" class="form-control select_class"
+							ng-options="t.name for t in ListWorker" ng-model="mSelectWorker" ng-change="ChangeWorker(mSelectWorker)">
+							<option></option>                       
+						</select>
+								 </div>
+								 </div>
+							<!-- <div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold">Thời gian thưc hiện quy trình</h4>	
+								</div>
+								<div class="col-md-6">
+									<input type="Number" class="form-control" 
+									placeholder="Thời gian thưc hiện quy trình" ng-model="ProcessDuration">
+								</div>
+							</div> -->
+						
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<h4 class="bold"> </h4>	
+								</div>
+								
+								<div class="col-md-3">
+									<button class="btn btn-info btn-block btn-login" 
+									ng-click="addDevice()">Thêm thiết bị</button>								  
+								</div>
+							</div>
+					
+						</div>
+		        	</div>
+				
+				</div>
+				
+			</div>
+			
+		
+			<!-- XEM USER -->		
+			<div class="panel panel-white " ng-show="isDeviceSelected">
+				<div class="col-md-12">
+					<div class="portlet box green">
+			       		<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+			            	<div class="caption">
+			                   	<i class="fa fa-globe"></i>
+			                   	<span class="caption-subject bold uppercase">
+			                   	Chi tiết Thiết bị: {{modelDeviceSelected.device_name}}  </span>
+			               	</div>
+			               	<div class="actions">
+			                   	
+			               	</div>
+			           	</div>
+			           	
+			           	<div class="portlet-body" >	
+			           		<div class="panel-body" >	
+										
+								
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2"><h4 class="bold">Tên thiết bị</h4>	
+									</div>
+									
+			           	 			 <div class="col-md-6">									
+										<input type="text" class="form-control" name="full_name"
+											 ng-model="modelDeviceName" ng-maxlength="50" placeholder={{modelDeviceSelected.device_name}}
+										>
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2"><h4 class="bold">Mã thiết bị</h4>	
+									</div>
+									
+			           	 			 <div class="col-md-6">									
+										<input type="text" class="form-control" name="full_name" ng-disabled="true"
+											 ng-model="modelDeviceCode" ng-maxlength="50" placeholder={{modelDeviceSelected.device_code}} 
+										>
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2"><h4 class="bold">Khu vực đặt</h4>	
+									</div>
+									
+			           	 			 <div class="col-md-6">									
+										<select id="capacity" name="capacity" class="form-control select_class"
+									ng-options="s.name for s in ListClassroom" ng-model="DeviceClass">
+									<option value="" disabled selected >{{modelDeviceSelected.class_name}}</option>                       
+								</select>
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2"><h4 class="bold">Nguồn dự án :</h4></div>
+									
+									 <div class="col-md-6">
+										<!-- <input list="list_role" type="text" class="form-control" 
+										placeholder={{modelUserSelected.role}} ng-model="modelUserRole"> -->
+										<!-- <select type="text"  class="form-control" 
+									data-ng-options="t.name for t in userType"
+									data-ng-model="modelUserRole"> -->
+                                    <input type="text" class="form-control" name="full_name"
+                                    ng-model="modelDeviceProjectSource" placeholder={{modelDeviceSelected.project_source}}
+                                     
+                               >
+									 </div>
+									 </div>
+									 <div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-2"><h4 class="bold">Người phụ trách :</h4></div>
+										
+										 <div class="col-md-6">
+											<!-- <input list="list_role" type="text" class="form-control" 
+											placeholder={{modelUserSelected.role}} ng-model="modelUserRole"> -->
+											<!-- <select type="text"  class="form-control" 
+										data-ng-options="t.name for t in userType"
+										data-ng-model="modelUserRole"> -->
+										<select id="capacity" name="capacity" class="form-control select_class" ng-disabled="true"
+									ng-options="t.name for t in ListWorker" ng-model="DeviceWorker" >
+									<option value="" disabled selected>{{modelDeviceSelected.owner_name}}</option>                       
+								</select>
+										 </div>
+										 </div>
+										 <div class="row">
+											<div class="col-md-1"></div>
+											<div class="col-md-2"><h4 class="bold">Trạng thái :</h4></div>
+											
+											 <div class="col-md-6">
+												<!-- <input list="list_role" type="text" class="form-control" 
+												placeholder={{modelUserSelected.role}} ng-model="modelUserRole"> -->
+												<!-- <select type="text"  class="form-control" 
+											data-ng-options="t.name for t in userType"
+											data-ng-model="modelUserRole"> -->
+											<select id="capacity" name="capacity" class="form-control select_class"
+										ng-options="s.name for s in ListState" ng-model="DeviceState">
+										<option value="" disabled selected> {{modelDeviceSelected.state_name}}</option>                       
+									</select>
+											 </div>
+											 </div>
+									 
+										 <div class="row">
+											<div class="col-md-1"></div>
+											<div class="col-md-2"><h4 class="bold"></h4></div>
+											<div class="col-md-2">
+												<a type=button class="btn btn-info btn-block btn-login" 
+												 ng-click="updateDevice(modelDeviceName,DeviceClass,modelDeviceProjectSource,DeviceState)"><span>Cập nhật</span></a> 
+										   </div>
+										 </div>
+									
+											
+                                             </div>
+                                    </div>	
+								
+                                     
+											
+                                   
+								
+							</div>
+                          
+							<hr>
+							
+			        	</div>
+			        </div>
+					<div class="panel panel-white "  ng-show="isCreateNewChecklist"> 
+						<div class="col-md-12">
+						<div class="portlet box green">
+							   <div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+								<div class="caption">
+									   <i class="fa fa-globe"></i>
+									   <span class="caption-subject bold uppercase">Thêm mới Thiết bị </span>
+								   </div>
+								   <div class="actions">
+								   
+								   </div>
+							   </div>
+							   <div class="portlet-body">
+								   
+								
+								<!-- <div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Full Name</h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="text" class="form-control" 
+										placeholder="Họ và tên..." ng-model="userFullname">
+									</div>
+									
+								</div> -->
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Tên thiết bị  </h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="text" class="form-control" 
+										placeholder="Tên thiết bị " ng-model="DeviceCode">
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Mô tả</h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="Text" class="form-control" 
+										placeholder="Mô tả trường" ng-model="DeviceDesc">
+									</div>
+								</div>
+								
+							
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold"> </h4>	
+									</div>
+									
+									<div class="col-md-3">
+										<button class="btn btn-info btn-block btn-login" 
+										ng-click="addDevice()">Thêm thiết bị</button>								  
+									</div>
+								</div>
+						
+							</div>
+						</div>
+					
+					</div>
+					
+				</div>
+					
+				</div>
+			</div>	
+					
+				
+			</div>
+		</div>
+
+   </div>
+</div>

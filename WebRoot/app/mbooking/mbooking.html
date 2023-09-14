@@ -1,0 +1,410 @@
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+    
+    	<div class="row" >
+				
+			<div class="col-md-12"  >
+				
+				<div class="portlet box blue">
+	       			
+	       			<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+		            	<div class="caption">
+		                   	<i class="fa fa-globe"></i>
+		                   	<span class="caption-subject bold uppercase">QUẢN LÝ DANH SÁCH ĐĂNG KÍ SỬ DỤNG PHÒNG HỌC</span>
+		               	</div>
+		               	<div class="actions">
+		               		
+									
+		               	</div>
+		           	</div>
+		           	
+		           	<div class="portlet-body">
+			        	<div class="panel-body" >
+					
+					        		
+								
+									<div class="col-md-12">
+										<div class="panel panel-default">
+											<div class="panel-body" >
+											
+												<!-- <div class="row">
+													<form name="myForm">
+														<div class="row">
+															
+														
+															<div class="col-md-12">
+																<div class="col-md-3 col-xs-12 col-sm-12" style="padding-left: 20px;">
+																	<label class="hidden-sm bold" for="loc">Tòa nhà</label>
+																	<select id="loc" name="loc" class="form-control select_class"
+																		ng-options="s.name for s in campusLocations" ng-model="mSelectedBuild" ng-change="ChangeBuiding(mSelectedBuild)">
+																		<option></option>                       
+																	</select>
+																</div>
+																<div class="col-md-3 col-xs-12 col-sm-12">
+																	<label class="hidden-sm bold" for="type">Tầng</label>
+																	<select id="type" name="type" class="form-control select_class"
+																		ng-options="s.name for s in floorList" ng-model="mSelectedFloor" ng-change="ChangeFloor(mSelectedFloor)">
+																		<option></option>                       
+																	</select>
+																</div>
+								
+																<div class="col-md-3 col-xs-12 col-sm-12">
+																	<span><label class="hidden-sm bold" for="capacity">
+																		Phòng học
+																	</label></span>
+																	<span><select id="capacity" name="capacity" class="form-control select_class"
+																		ng-options="s.name for s in roomList" ng-model="mSelectedRoom" ng-change="ChangeRoom(mSelectedRoom)">
+																		<option></option>                       
+																	</select></span>
+																</div>
+																<div class="col-md-2 col-xs-12 col-sm-12" style="padding-top: 20px;">
+																
+																
+																	<button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="findTimetableClass(mSelectedBuild,mSelectedRoom,findDate)" style="font-size:120%"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Tìm kiếm</button>
+																
+																</div>
+															
+															</div>
+															
+														</div>
+													</form>
+												</div> -->
+												
+												<hr>
+												
+												<!-- <div ng-show="choiceClassRoomMode==0">
+													<div class="row">
+														<div class="col-md-1"></div>
+														<div class="col-md-3">
+															<h5 class="bold">Tên khu vực</h5>	
+														</div>
+														<div class="col-md-6">									
+															<input id="org_name_id" type="text" class="form-control" name="name"
+																 ng-model="campusareaName" ng-maxlength="250" required
+																   ng-disabled="true"
+																 placeholder={{treeCampusAreaSelected.label}}
+																>
+														</div>
+												        <div class="col-md-2 hide">
+												       		<button type="button" class="btn btn-info btn-block btn-login" 
+												       		ng-click="updateCampusArea(campusareaName, campusareaUrl, campusareaLogo,campusareaCode,campusareaObjectID,
+												       		campusareaSize,campusareaUsageType,campusareaOwnerType,campusareaRole)">Cập nhật</button>
+												        </div>
+													</div>
+														
+													<div class="row">
+														<div class="col-md-1"></div>
+														<div class="col-md-3">
+															<h5 class="bold">Code</h5>	
+														</div>
+														<div class="col-md-6">									
+															<input id="code" type="text" class="form-control" name="logo"
+																 ng-model="campusareaCode" ng-maxlength="250" required
+																   ng-disabled="true"
+																 placeholder={{treeCampusAreaSelected.code}}
+															>
+														</div>
+														
+													</div>
+														
+													<div class="row" ng-show="treeCampusAreaSelected.loai>=3 && treeCampusAreaSelected.loai<6">
+														<div class="col-md-1"></div>
+														<div class="col-md-3">
+															<h5 class="bold">Diện tích xây dựng (m2)</h5>	
+														</div>
+														<div class="col-md-6">									
+															<input id="obj_id" type="number" class="form-control" name="dtxd"
+																 ng-model="campusareaDtxd" ng-maxlength="250" required
+																   ng-disabled="true"
+																 placeholder={{treeCampusAreaSelected.dtxd}}
+															>
+														</div>
+														
+													</div>
+														<div class="row" ng-show="treeCampusAreaSelected.loai>=3 && treeCampusAreaSelected.loai<6">
+															<div class="col-md-1"></div>
+															<div class="col-md-3">
+																<h5 class="bold">Diện tích sử dụng (m2)</h5>	
+															</div>
+															<div class="col-md-6">									
+																<input id="obj_id" type="number" class="form-control" name="dtsd"
+																	 ng-model="campusareaDtxd" ng-maxlength="250" required
+																	   ng-disabled="true"
+																	 placeholder={{treeCampusAreaSelected.dtsd}}
+																>
+															</div>
+															
+														</div>
+														<div class="row" ng-show="treeCampusAreaSelected.loai>=6">
+															<div class="col-md-1"></div>
+															<div class="col-md-3">
+																<h5 class="bold">Diện tích (m2)</h5>	
+															</div>
+															<div class="col-md-6">									
+																<input id="obj_id" type="number" class="form-control" name="dien_tich"
+																	 ng-model="campusareaDientich" ng-maxlength="250" required
+																	   ng-disabled="true"
+																	 placeholder={{treeCampusAreaSelected.dien_tich}}
+																>
+															</div>
+															
+														</div>
+														
+														<div class="row">
+															<div class="col-md-1"></div>
+															<div class="col-md-3">
+																<h5 class="bold">Quyền sở hữu </h5>	
+															</div>
+															<div class="col-md-6">									
+																<input id="obj_id" type="number" class="form-control" name="size"
+																  ng-disabled="true"
+																	 placeholder={{treeCampusAreaSelected.owner_type_name}}>
+															</div>
+															<div class="col-md-3 hide">									
+																<select id="single" class="form-control select"
+														                ng-options="s.name  for s in optionCampusOwnerType" 
+														                ng-model="campusareaOwnerType" >
+														                    <option>-------Chọn -------</option>	                    
+													            </select>
+															</div>
+															
+														</div>
+														<div class="row">
+															<div class="col-md-1"></div>
+															<div class="col-md-3">
+																<h5 class="bold">Loại CSVC </h5>	
+															</div>
+															<div class="col-md-6">									
+																<input id="obj_id" type="text" class="form-control" name="ten_loai"  ng-disabled="true"
+																	 placeholder={{treeCampusAreaSelected.ten_loai}}>
+															</div>
+															<div class="col-md-3 hide">									
+																<select id="single" class="form-control select"
+														                ng-options="s.name  for s in optionCampusType" 
+														                ng-model="campusareaRole" >
+														                    <option>-------Chọn -------</option>	                    
+													            </select>
+															</div>
+															
+														</div>
+														<div class="row hide">
+															<div class="col-md-1"></div>
+															<div class="col-md-3">
+																<h5 class="bold">DVQL</h5>	
+															</div>
+															<div class="col-md-6">									
+																<input id="code" type="text" class="form-control" name="org"
+																	 ng-model="campusareaOrg" ng-maxlength="250" required
+																	 placeholder={{treeCampusAreaSelected.org_name}}
+																>
+															</div>
+															
+														</div>
+														<div class="row">
+															<div class="col-md-1"></div>
+															<div class="col-md-3">
+																<h5 class="bold">QR Code</h5>	
+															</div>
+															<div class="col-md-6">									
+																<input id="qr_code" type="text" class="form-control" name="qr_code"
+																	 ng-model="campusareaQrCode" ng-maxlength="250" required
+																	 placeholder={{treeCampusAreaSelected.qr_code}}
+																>
+															</div>
+															
+														</div>
+													
+													<hr>
+													
+													<div class="row"  ng-show="treeCampusAreaSelected.loai==13">
+														<div class="col-md-1"></div>
+														<div class="col-md-3">
+															<span style="font-size:16px;font-weight:bold;">Cho phép book </span>
+														</div>
+	
+														<div class="col-md-1">
+															 <input type="checkbox" id="is_booking_enabled" ng-model="treeCampusAreaSelected.is_booking_enabled" 
+															 ng-if="true" ng-true-value="1" ng-false-value="0" class="ng-pristine ng-untouched ng-valid"
+															 ng-click="checkOptionBookingEnabled(treeCampusAreaSelected.is_booking_enabled)" >
+														</div>
+														<div class="col-md-2">
+															<button type="button" class="btn btn-info btn-block btn-login" 
+													       		ng-click="updateBookingOption(treeCampusAreaSelected.id,treeCampusAreaSelected.is_booking_enabled)">Cập nhật</button>
+														</div>
+													</div> 
+															
+												</div>	 -->
+												
+												
+												
+												<div ng-show="choiceClassRoomMode==1">
+													
+													
+													<span style="font-size:16px;">Lịch sử dụng phòng:</span>
+													<span  style="font-size:18px; color:red"> {{treeCampusAreaSelected.label}}</span>
+													<span style="font-size:16px;">-Số event: </span>
+													<span style="font-size:18px; color:red">{{optionRoomSchedule.length}}</span>
+							           	 			<br><br>
+						           					<div id='t_calendar' style=" height:300px;" ></div>	
+												</div>
+												<div ng-show="choiceClassRoomMode==0">
+													
+													<div class="panel-body" >
+<!-- 													
+														<div class="row text-center">
+															Danh sách Booking của: {{treeCampusAreaSelected.label}}
+															
+														</div> -->
+														
+														
+														<div class="table-responsive">
+															<table ng-table="tableParamsBookingOrder" class="table">
+																
+																<tbody
+																	ng-repeat="p in tableDisplayBookingOrder | filter:searchName">
+																	
+																	<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+																		
+																		<td width="5%" class="rowTd padding-right-0">
+																			<a type=button class="btn-info btn-o btn-sm" 
+																				ng-click="clickBookingOrderSelected(p)">
+																				<i class="fa fa-check" ng-if="currentBookingOrderId==p.id"></i>
+																				<i class="fa fa-circle-o" ng-if="currentBookingOrderId!=p.id"></i>
+																			</a>
+																		</td>
+																		
+																		<td class="rowTd text-center" data-title="'STT'">{{$index+1}}</td>
+																		<td class="rowTd" data-title="'Tòa'"
+																		sortable="'campus_area_name'">{{p.building_name}}</td>
+																		<td class="rowTd" data-title="'Phòng'"
+																			sortable="'campus_area_name'">{{p.class_name}}</td>
+																	
+																		<td  class="rowTd " data-title="'Ngày tạo'"
+																			sortable="'created_time'">{{p.create_time}}</td>	
+																			
+																		<td class="rowTd " data-title="'Người tạo'"
+																			sortable="'oder_by_name'">{{p.order_by_name}}</td>
+																		
+																		<td class="rowTd text-center" data-title="'Kíp bắt đầu'"
+																			sortable="'begin_time'">{{p.starting_block}}</td>
+																			<td class="rowTd text-center" data-title="'Kíp kết thúc'"
+																			sortable="'begin_time'">{{p.ending_block}}</td>
+																			
+																		<td class="rowTd text-center" data-title="'Ngày mượn'"
+																			sortable="'begin_time'">{{p.date}}</td>
+																		
+																		<td  class="rowTd text-center" data-title="'Trạng thái'"
+																			sortable="'state_name'">{{p.state_name}}</td>
+																		
+																	</tr>
+			
+																</tbody>
+															</table>
+														</div>
+														
+														<hr>
+														<div ng-show="isBookingOrderSelected==true">
+															
+															<span style="font-size:16px;" class="bold">Chi tiết booking order</span>
+															
+															
+															<br>
+															<div class="row">
+										           	 			<div class="col-md-1"></div>
+										           	 			<div class="col-md-3"><h4 class="bold">Tên phòng:</h4></div>
+										           	 			
+										           	 			 <div class="col-md-6">
+										           	 				<input id="name_id" type="text" class="form-control" 
+										           	 				placeholder="{{modelBookingOrderSelected.building_name}} - {{modelBookingOrderSelected.class_name}} "
+										           	 				ng-model="modelBookingOrderAreaName">  
+										           	 			 </div>
+										           	 			 <div class="col-md-2">
+																	<a type=button class="btn btn-info btn-block btn-login" 
+															          ng-click="updateBookingOrder(modelBookingOrderSelected,campusareaBookingState,modelSubmitReason)"><span>Cập nhật</span></a> 
+															    </div>
+										           	 		</div>
+															<div class="row">
+																<div class="col-md-1"></div>
+																<div class="col-md-3">
+																	<h5 class="bold">Chuyển trạng thái </h5>	
+																</div>
+																<div class="col-md-3">									
+																	<input id="obj_id" type="number" class="form-control" name="size" 
+																		 ng-disabled="true"
+																		 placeholder={{modelBookingOrderSelected.state_name}}>
+																</div>
+																<div class="col-md-3">									
+																	<select id="single" class="form-control select"
+															                ng-options="s.name  for s in optionBookingState" 
+															                ng-model="campusareaBookingState" >
+															                    <option>-------Chọn -------</option>	                    
+														            </select>
+																</div>
+																
+															</div>
+															<div class="row">
+																<div class="col-md-1"></div>
+																<div class="col-md-3">
+																	<h4 class="bold">Lí do</h4>	
+																</div>
+																
+										           	 			 <div class="col-md-6">									
+																	<input type="text" class="form-control" name="time"
+																		 ng-model="modelChangeReason" ng-maxlength="500"
+																		 placeholder={{modelBookingOrderSelected.reason}}																		  required
+																	> 
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-1"></div>
+																<div class="col-md-3">
+																	<h4 class="bold">Lí do từ chối cho mượn (Nếu có)</h4>	
+																</div>
+																
+										           	 			 <div class="col-md-6">									
+																	<input type="text" class="form-control" name="time"
+																		 ng-model="modelSubmitReason" ng-maxlength="500" placeholder="{{modelBookingOrderSelected.exec_reason}}"
+ 																	  required
+																	> 
+																</div>
+															</div>
+															<br><br>
+															<br>
+															<!-- <div class="row">
+										           	 			<div class="col-md-1"></div>
+										           	 			<div class="col-md-3"><h4 class="bold">Kết quả kiểm tra sự hợp lệ:</h4></div>
+										           	 			
+										           	 			 <div class="col-md-6">
+										           	 				<span style="font-size:14px; color:green"></span>{{result_check}} </div>
+										           	 				
+										           	 			 </div> -->
+										           	 			 <div class="col-md-2">
+																	
+															    </div>
+										           	 		</div>
+														
+														</div>
+														<div ng-show="isBookingOrderSelected==false">
+															Không order nào được chọn
+														
+														</div>
+														
+												</div>
+																		
+										</div>
+									</div>
+								</div>
+		           			</div>
+	           			</div>
+	           		</div>
+	         	</div>
+	          
+		 	</div>
+			
+		</div>
+    
+    	
+      
+     
+</div>

@@ -1,0 +1,119 @@
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="container-fluid container-fullw">
+			<div class="row" >
+				<div class="panel panel-white">
+					<div class="portlet light">
+						<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+							<div class="caption">
+								<i class="icon-fire"></i>
+								<span class="caption-subject bold uppercase">Danh sách các yêu cầu đặt phòng</span>
+							</div>
+							<div class="actions padding-bottom-5">
+								<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+									<a class="btn btn-default" ng-show="view_hot" ng-click="viewAll()">
+										<i class="icon-eye-open"></i>Xem tất cả
+									</a>
+									<a class="btn btn-default" ng-hide="view_hot" ng-click="viewHot()">
+										<i class="icon-eye-open"></i>Xem ca sắp diễn ra
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="portlet-body" style="">
+							<div class="" ng-show="booking_order_list.length==0">
+								<h4>Không có đề xuất đặt phòng nào</h4>
+							</div>
+							<div class="table-responsive">
+								<table ng-table="tableParamsBookingOrder" class="table">
+									
+									<tbody
+										ng-repeat="p in tableDisplayBookingOrder | filter:searchName">
+										
+										<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+											
+											<!-- <td width="5%" class="rowTd padding-right-0">
+												<a type=button class="btn-info btn-o btn-sm" 
+													ng-click="clickBookingOrderSelected(p)">
+													<i class="fa fa-check" ng-if="currentBookingOrderId==p.id"></i>
+													<i class="fa fa-circle-o" ng-if="currentBookingOrderId!=p.id"></i>
+												</a>
+											</td> -->
+											
+											<td class="rowTd text-center" data-title="'STT'">{{$index+1}}</td>
+											<!-- <td class="rowTd" data-title="'Tòa'"
+											sortable="'campus_area_name'">{{p.building_name}}</td> -->
+											<td class="rowTd" data-title="'Phòng'"
+												sortable="'campus_area_name'">{{p.building_name}}-{{p.class_name}}</td>
+										
+											<td  class="rowTd " data-title="'Ngày tạo'"
+												sortable="'created_time'">{{p.create_time}}</td>	
+												
+											<!-- <td class="rowTd " data-title="'Người tạo'"
+												sortable="'oder_by_name'">{{p.order_by_name}}</td> -->
+											
+											<td class="rowTd text-center" data-title="'Kíp bắt đầu'"
+												sortable="'begin_time'">{{p.starting_block}}</td>
+												<td class="rowTd text-center" data-title="'Kíp kết thúc'"
+												sortable="'begin_time'">{{p.ending_block}}</td>
+												
+											<td class="rowTd text-center" data-title="'Ngày mượn'"
+												sortable="'begin_time'">{{p.date}}</td>
+											
+											<td ng-show="p.state == 3"class="rowTd text-center" data-title="'Trạng thái'"
+												sortable="'state_name'" style="background-color: red; color:white">{{p.state_name}}</td>
+												<td ng-show="p.state == 3" class="rowTd text-center" data-title="'Lý do từ chối'"
+												sortable="'state_name'">{{p.exec_reason}}</td>
+												<td ng-if="p.state==2"class="rowTd text-center" data-title="'Trạng thái'"
+												sortable="'state_name'" style="background-color:green; color:white">{{p.state_name}}</td>
+												<td ng-if="p.state==1"class="rowTd text-center" data-title="'Trạng thái'"
+												sortable="'state_name'" style="background-color: Yellow; color:black">{{p.state_name}}</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<style type="text/css">
+	.absent {
+	  background-color: rgba(255, 255, 0, 0.5);
+	}
+
+	.doing {
+	  background-color: rgba(0,0, 255,0.5);
+	}
+
+	.handedin {
+	  background-color: rgba(0,255,0,0.5);
+	}
+	.locked {
+	  background-color: rgba(255,0,0,0.5);
+	}
+
+
+
+	.hot {
+		background-color:  red;
+	}
+	.cold {
+		background-color:  blue;
+	}
+	.ongoing {
+		background-color: green;
+	}
+	.far {
+		background-color: cyan;
+	}
+	.over {
+		background-color: grey;
+	}
+</style>

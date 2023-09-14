@@ -1,0 +1,117 @@
+<div class="portlet box green">
+	<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+		<div class="caption">
+   			<i class="fa fa-globe"></i>
+   			<span class="caption-subject bold uppercase">Thêm sinh viên</span>
+   		</div>
+		<div class="actions">
+			<button type="button" class="btn btn-success" 
+           	ng-click="return2List()"  >
+           	<span class="glyphicon glyphicon-chevron-left"></span>Quay lại danh sách</button>
+       	</div>
+    </div>
+
+    <div class="portlet-body">
+    	<div class="panel-body">
+        	<div ng-show="file_is_uploading">
+        		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Vui lòng chờ...</span>
+        	</div>
+        	<div ng-hide="file_is_uploading">
+				<form name="myForm">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-4">
+							<h5  class="bold padding-left-40">Nhập thông tin</h5>	
+						</div>
+						<div class="col-md-2">
+							<label> <input type="radio" name="x"
+								ng-change="RadioChange('0')" ng-model="choiceStudentInputMode"
+								value="0" checked="true"/> <span style="font-size:14px;">Trực tiếp</span>
+							</label>
+						</div>
+						<div class="col-md-2">
+							<label> <input type="radio" name="x"
+								ng-change="RadioChange('1')" ng-model="choiceStudentInputMode"
+								value="1"  /> <span
+								style="font-size:14px;">Từ file </span>
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<hr>
+			<div ng-show="choiceStudentInputMode==0">
+				<!-- <div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-2">
+						<h5 class="bold">MSV</h5>	
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Mã số SV..." ng-model="$parent.userStudentID">
+					</div>
+				</div> -->
+
+				<div class="row">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-1"><h5 style="font-weight:bold;">Nhập MSV</h5></div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<div class="">
+									<input type="text" ng-model= "ids2add" class="form-control" />
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-1">
+							<button class="btn-circle btn-icon-only" ng-click="addStudent2Class(ids2add); showAddStudent=false"><i class="fa fa-plus"></i></button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="info"  style="margin: 10px;">
+						  <p><strong>Lưu ý:</strong> Có thể nhập đồng thời nhiều MSV, cách nhau 1 dấu cách (VD copy cột và paste từ excel)</p>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div ng-show="choiceStudentInputMode==1">
+				<div class="row text-center">
+					<div class="row text-center">
+						<div class="col-md-1"></div>
+						<div class="col-md-2">
+							<h5 class="bold">Chọn học kỳ</h5>	
+						</div>
+						<div class="col-md-6">
+							<select id="single" class="form-control select_class"
+							ng-options="t.name for t in terms" ng-model="selectedTerm" ng-change="changeTerm(selectedTerm)">
+								<option></option>	                    
+							</select>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-md-1"></div>
+						<div class="col-md-2">
+							<h5 class="bold">Chọn file</h5>	
+						</div>
+						<div class="col-md-6">
+							<input type="file" name="fileInput" id="fileInput" 
+							onchange="angular.element(this).scope().fileStudentChanged(event)" style="align-items:center;" />
+						</div>
+					</div>	
+					<br>
+					<div class="row text-center">
+						<div class="col-md-1"></div>
+						<div class="col-md-2"></div>
+						<div class="col-md-6">
+							<button class="btn btn-info btn-block btn-login" ng-click="uploadStudent()" ng-disabled="file_is_uploading==true">Upload file</button>
+						</div>
+					</div>
+				</div>
+			</div>
+    
+    	</div>
+    </div>
+</div>

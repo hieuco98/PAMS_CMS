@@ -1,0 +1,293 @@
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="container-fluid container-fullw ">
+			<div class="row" >
+				<div class="portlet box green"  ng-hide="isCreateNewUser==true||isStudentSelected==true">
+					<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+						<div class="caption">
+							<i class="fa fa-globe"></i>
+							<span class="caption-subject bold uppercase">Danh sách sinh viên</span>
+						</div>
+						<div class="actions">
+							<span class="pull-right">
+								<button class="button btn-primary"  ng-click="clickAddNewUser();"  >
+									<i class="fa fa-plus-circle" aria-hidden="true"></i>
+								</button>
+								<button class="button btn-primary" ng-print print-element-id="tblStudents">
+									<i class="fa fa-print"></i>
+								</button>
+								<button class="button btn-primary" ng-click="exportToExcel('#tblStudents')">
+									<i class="fa fa-file-excel-o" aria-hidden="true"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+
+					<div class="portlet-body" style="min-height:375px">
+						<div class="panel-body">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-1 text-right">
+										<h5  class="bold padding-left-40">Môn học</h5>	
+									</div>
+									<div class="col-md-3">
+										<select id="single" class="form-control select_class"
+										ng-options="s.prog_name for s in optionProg" ng-model="modelProgSelected" ng-change="ChangeProg(modelProgSelected)">
+											<option></option>	                    
+										</select>
+									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-1"><h5  class="bold padding-left-40">Lớp</h5></div>
+									<div class="col-md-3">
+										<select id="single" class="form-control select_class"
+										ng-options="s.class_name for s in class_list" ng-model="mClass_selected" ng-change="ChangeClass(mClass_selected)">
+											<option></option>	                    
+										</select>
+									</div>
+								</div>
+						<br>
+						<hr>
+						<br>
+						<div ng-show="isLoading"><i class="fa fa-spinner fa-pulse fa-3x" aria-hidden="true"></i> Đang tải dữ liệu...</div>
+						<div>
+							<div class="row" ng-hide="isLoading">
+								<div class="row"  ng-show="class_list.length==0"><h4>Không có lớp nào trong danh sách</h4></div>
+								<div class="row" ng-hide="class_list.length==0">
+									<div class="row">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-7">
+						   					<!-- <label>Số lượng hiển thị:</label>
+						   					<select ng-model="data_limit.id" convert-to-number>
+						   						<option value="5">5</option>
+						   						<option value="10">10</option>
+						   						<option value="20">20</option>
+						   						<option value="50">50</option>
+						   						<option value="100">100</option>
+						   					</select> -->
+						   				</div>
+						   				<div class="col-sm-3">
+						   					<label>Tìm kiếm:</label>
+						   					<input class="pull-right" type="text" ng-model="search" ng-change="filter()" placeholder="Nhập từ khóa tìm kiếm..."  />
+						   				</div>
+									</div>
+									<div class="row">
+					   				<div class="col-md-12" ng-show="filter_data > 0">
+					   					<table class="table table-striped table-bordered" id="tblStudents">
+					   						<thead class="text-center">
+					   							<th  class="text-center"></th>
+					   							<th  class="text-center">STT</th>
+					   							<th  class="text-center">Họ tên&nbsp;<a ng-click="sort_with('student_name');"><i class="glyphicon glyphicon-sort"></i></a></th>
+					   							<th class="text-center">Năm sinh&nbsp;<a ng-click="sort_with('dob');"><i class="glyphicon glyphicon-sort"></i></a></th>
+					   							<th class="text-center">MSV&nbsp;<a ng-click="sort_with('code');"><i class="glyphicon glyphicon-sort"></i></a></th>
+					   							<th class="text-center">Email&nbsp;<a ng-click="sort_with('email');"><i class="glyphicon glyphicon-sort"></i></a></th>
+					   							<!-- <th>Lớp niên chế&nbsp;<a ng-click="sort_with('nc_name');"><i class="glyphicon glyphicon-sort"></i></a></th> -->
+					   							<th  class="text-center">Action&nbsp;<a ng-click="sort_with('age');"><i class="glyphicon glyphicon-sort"></i></a></th>
+					   						</thead>
+					   						<tbody>
+					   							<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="p in searched = (tableDataStudent | filter:search | orderBy : base :reverse) | beginning_data:(current_grid-1)*data_limit.id | limitTo:data_limit.id">
+					   								<td width="5%" class="rowTd padding-right-0">
+					   									<a type=button class="btn-o btn-sm" 
+					   									ng-click="clickStudentSelected(p)">
+						   									<i class="fa fa-check" ng-if="currentStudentId==p.id"></i>
+						   									<i class="fa fa-circle-o" ng-if="currentStudentId!=p.id"></i>
+						   								</a>
+						   							</td>
+						   							<td class="rowTd text-center">{{$index+1}}</td>
+						   							<td class="rowTd text-center">{{p.full_name}}</td>
+						   							<td class="rowTd text-center">{{p.dob}}</td>
+						   							<td class="rowTd text-center">{{p.code}}</td>
+						   							<td class="rowTd text-center">{{p.email}}</td>
+						   							<!-- <td class="rowTd text-center">{{p.nc_name}}</td> -->
+
+						   							<td class="rowTd text-center">
+						   								<div class="text-center margin-right-10">
+						   									<span class="text-center" style="font-size: 15px; color:red" value="Remove"
+						   									ng-click="clickDeleteStudent(p.id)">
+						   									<i class="fa fa-trash" aria-hidden="true"> </i>
+						   								</span>Delete
+						   							</div>
+						   						</td>
+						   					</tr>
+						   				</tbody>
+						   			</table>
+						   		</div>
+						   		<div class="col-md-12" ng-show="filter_data == 0">
+						   			<div class="col-md-12">
+						   				<h4>Không tìm thấy kết quả nào</h4>
+						   			</div>
+						   		</div>
+						   		<div class="col-md-12">
+						   			<div class="col-md-6 pull-left">
+						   				<h5>Hiển thị {{ searched.length }} trong toàn bộ {{ entire_user}} sinh viên</h5>
+						   			</div>
+						   			<div class="col-md-6" ng-show="filter_data > 0">
+
+						   				<div pagination="" page="current_grid" on-select-page="page_position(page)" boundary-links="true" total-items="filter_data" items-per-page="data_limit.id" class="pagination-small pull-right" previous-text="&laquo;" next-text="&raquo;"></div>
+						   			</div>
+						   		</div>
+						   	</div>
+
+					   			</div>
+					   			
+						   </div>
+						</div>
+					</div>
+				</div>
+			
+					</div>
+				</div>
+
+				<div  ng-show="isCreateNewUser==true" ng-include="'app/student/createStudent.html'">
+				</div>
+
+				<div class="portlet box green"  ng-show="isStudentSelected==true">
+					<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+						<div class="caption">
+							<i class="fa fa-globe"></i>
+							<span class="caption-subject bold uppercase">Chi tiết sinh viên</span>
+						</div>
+						<div class="actions">
+							<span class="pull-right">
+								<button type="button" class="btn btn-success" 
+									ng-click="isStudentSelected=false;"  >
+									<span class="glyphicon glyphicon-chevron-left"></span>Quay lại danh sách
+								</button>
+							</span>
+						</div>
+					</div>
+
+					<div class="portlet-body" style="min-height:375px">
+						<tabset class="tabable">
+							<tab heading="Thông tin sinh viên" active="selectedTabIsUserInfo" ng-click="userinfoTab()">
+								<div class="panel-body">	
+									<div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-2"><h5 class="bold">Họ tên:</h5></div>
+
+										<div class="col-md-6">
+											<input id="full_name_id" type="text" class="form-control" 
+											required 
+											ng-model="modelStudentSelected.full_name"> 
+										</div>
+										<div class="col-md-2">
+											<a type=button class="btn btn-info btn-block btn-login" 
+											ng-click="updateProfile(modelStudentSelected)"><span>Cập nhật</span></a> 
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-2">
+											<h5 class="bold">MSV:</h5>	
+										</div>
+
+										<div class="col-md-6">									
+											<input type="text" class="form-control" name="code"
+											ng-model="modelStudentSelected.code" ng-maxlength="50" required>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-2">
+											<h5 class="bold">Email:</h5>	
+										</div>
+
+										<div class="col-md-6">									
+											<input type="text" class="form-control" name="email"
+											ng-model="modelStudentSelected.email" ng-maxlength="50" required>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-2">
+											<h5 class="bold">Điện thoại:</h5>	
+										</div>
+										<div class="col-md-6">
+											<input id="mobile" type="text" class="form-control" ng-model="modelStudentSelected.mobile"> 
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-2">
+											<h5 class="bold">DoB:</h5>	
+										</div>
+										<div class="col-md-6">
+											<input id="dob" type="text" class="form-control" ng-model="modelStudentSelected.dob"> 
+										</div>
+									</div>
+								</div>
+							</tab>
+
+							<tab heading="Sinh viên - Lớp" active="selectedTabIsUserClass" ng-click="userclassTab()">
+								<div class="panel" ng-include="'app/student/studentclass.html'"></div>
+							</tab>
+						</tabset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="add_student_result_popup" data-backdrop="static"
+	data-keyboard="false" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-blue bg-font-blue">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true"></button>
+				<h4 class="modal-title bold text-center uppercase"><span>Kết quả thêm sinh viên vào ca thi:</span> <span style="color: yellow;"></span></h4>
+			</div>
+			<div class="modal-body font-blue-chambray">
+				<div class="portlet light no-padding margin-bottom-0">
+					<div class="portlet-body">
+						<div class="table-responsive">
+							<table class="table">
+								<tbody ng-repeat="p in result | filter:searchName">
+									<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+										<td class="rowTd text-center" data-title="'STT'"  >{{$index+1}}</td>
+										<td class="rowTd text-center" data-title="'MSV'"   sortable="'sid'">{{p.sid}}</td>
+										<td class="rowTd text-center" data-title="'Trạng thái'"   sortable="'state'">{{p.state}}</td>
+										<td class="rowTd text-center" data-title="'Miêu tả'"   sortable="'desc'">{{p.desc}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<span><button class="btn btn-danger" data-dismiss="modal">Đóng lại</button></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	.th{
+		text-align:center ;
+	}
+
+	.info {
+	  background-color: #e7f3fe;
+	  border-left: 6px solid #2196F3;
+	  height: 30px;
+	  padding: 10px;
+	}
+</style>
+
+<!-- <style type="text/css">
+	.modal-backdrop{
+		z-index: 500!important;
+	}
+	.swal2-container {
+	  z-index: 11000!important;
+	}
+
+	.info {
+	  background-color: #e7f3fe;
+	  border-left: 6px solid #2196F3;
+	  height: 30px;
+	  padding: 10px;
+	}
+</style> -->

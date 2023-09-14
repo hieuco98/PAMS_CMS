@@ -1,0 +1,520 @@
+<div class="page-content-wrapper">
+    <div class="page-content">
+		
+		<div class="container-fluid container-fullw ">
+			<div class="row" >
+				
+				<div class="col-md-12"  >
+					
+					<div class="portlet box blue">
+		       			
+		       			<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+			            	<div class="caption">
+			                   	<i class="fa fa-globe"></i>
+			                   	<span class="caption-subject bold uppercase">THỜI KHÓA BIỂU</span>
+			               	</div>
+			               	<div class="actions">
+				               	<button type="button" class="btn btn-success pull-right" 
+									ng-click="clickUploadTKB()"
+									ng-show="!isUploadTKB"
+									><span class="glyphicon glyphicon-plus-sign"></span>Upload TKB</button>
+									
+								<button type="button" class="btn btn-success pull-right" 
+									ng-show="isUploadTKB"
+									ng-click="clickViewTKB()"
+									><span class="glyphicon glyphicon-list-alt"></span> Xem lịch</button>
+			               	</div>
+			           	</div>
+			           	
+			           	<div class="portlet-body">
+				        	<div class="panel-body">
+								<div class="row " ng-show="isUploadTKB">
+									<div class="row">
+										<div class="col-sm-4">Upload thời khóa biểu</div>
+										<div class="col-sm-4">
+											<input type="file" ngf-select="SelectFile($file)" />
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-4"></div>
+										<div class="col-sm-4">
+											<input type="button" value="Upload" ng-click="UploadTKB()" />
+										</div>
+									</div>
+								</div>
+								<div class="row" ng-show="!isUploadTKB">
+									<div style="text-align:left">
+									    <button type="button" class="btn btn-success" ng-click="thoikhoabieulop_click()">TKB Lớp </button>
+									    <!-- <button type="button" class="btn btn-warning" ng-click="thoikhoabieugiangvien_click()">TKB Giảng viên </button> -->
+									    <button type="button" class="btn btn-danger"ng-click="thoikhoabieuphong_click()">TKB Phòng</button>
+									    <!-- <button type="button" class="btn" style="background-color: #00CC66; color: #FFF; " ng-click="thoikhoabieukhoa_click()">TKB Khoa</button> -->
+									    <button type="button" class="btn btn-primary" ng-click="timphongtrong_click()">Tìm phòng trống</button>
+									
+									</div>
+								
+								<div>
+								
+								
+							    <div style="margin: 10px 0px 0px; display: none;" class="tkbLop">
+							        Năm học: 
+							      
+							        <select id="YearStudy" name="YearStudy" style="width:100px"
+							        	ng-change="changeYear(modelYearSelected)" 
+							       		ng-options="s.name  for s in optionSchoolYear" 
+							       		ng-model="modelYearSelected" 
+							       		
+							        >
+							        	
+									</select>
+							        Học kỳ: 
+							        <select id="TermID" name="TermID" style="width:100px"
+							        
+							        	ng-change="changeSemester(modelSemesterSelected)" 
+							       		ng-options="s.name  for s in optionSemester" 
+							       		ng-model="modelSemesterSelected" 
+							        	>
+							        	
+									</select>
+							        Lớp: 
+							        <select id="ClassStudentID" name="ClassStudentID" style="width:100px"
+							        	ng-change="changeClass(modelClassSelected)" 
+							       		ng-options="s.name  for s in optionClass" 
+							       		ng-model="modelClassSelected" 
+							        >
+							        	<option></option>
+								       
+							       </select>
+							        
+							        Tuần: 
+							        <select id="Week" name="Week"  style="width:100px;" 
+							        	ng-change="changeWeek(modelWeekSelected)" 
+							        	ng-options="s.name  for s in optionWeek" 
+							        	ng-model="modelWeekSelected" >
+							        	
+							        	
+							        </select>
+							        
+							        <button type="button" ng-click="getClassTimeTable(modelClassSelected.name,modelWeekSelected.name)" class="btn btn-info btn-xs">Tìm TKB</button>
+							    
+							    </div>
+								
+							    <div style="margin: 10px 0px 0px; display: block;" class="tkbGiangVien">
+							        Năm học: 
+							        <select id="YearStudy2" name="YearStudy2" style="width:100px"
+							        	ng-change="changeYear(modelYearSelected)" 
+							       		ng-options="s.name  for s in optionSchoolYear" 
+							       		ng-model="modelYearSelected" 
+							        	
+							        ></select>
+							        Học kỳ: 
+							        <select id="TermID2" name="TermID2" style="width:100px"
+							        	ng-change="changeSemester(modelSemesterSelected)" 
+							       		ng-options="s.name  for s in optionSemester" 
+							       		ng-model="modelSemesterSelected" 
+							        ></select>
+									
+							        Giảng viên: 
+							        <select id="ProfessorID" name="ProfessorID" style="width:100px"
+							        	ng-change="changeLecturer(modelLecturerSelected)"
+							        	ng-model="modelLecturerSelected" 
+							        	ng-options="s.name  for s in optionLecturer"
+							        ></select>
+							
+							        Tuần: 
+							        <select id="Week2" name="Week2" style="width:100px;text-align:center"
+							        	ng-change="changeWeek(modelWeekSelected)" 
+							        	ng-options="s.name  for s in optionWeek" 
+							        	ng-model="modelWeekSelected"
+							        ></select>
+							        <button type="button" ng-click="getLecturerTimeTable(modelLecturerSelected.code,modelWeekSelected.name)" class="btn btn-info btn-xs">Tìm TKB</button>
+							    </div>
+								
+							    <div style="margin: 10px 0px 0px; display: none;" class="tkbPhong">
+							        Năm học: 
+							        <select id="YearStudy3" name="YearStudy3"  style="width:100px"
+							        	ng-change="changeYear(modelYearSelected)" 
+							       		ng-options="s.name  for s in optionSchoolYear" 
+							       		ng-model="modelYearSelected" 
+							        	
+							        	></select>
+									
+							        Học kỳ: 
+							        <select id="TermID3" name="TermID3" style="width:70px"
+							       		ng-change="changeSemester(modelSemesterSelected)" 
+							       		ng-options="s.name  for s in optionSemester" 
+							       		ng-model="modelSemesterSelected" 
+							        ></select>
+							
+							 		Nhà: 
+							        <select id="BuildingID" name="BuildingID" style="width:100px"
+							       		ng-change="changeBuilding(modelBuildingSelected)" 
+							       		ng-options="s.name  for s in optionBuilding" 
+							       		ng-model="modelBuildingSelected" 
+							        ></select>
+							        Phòng: 
+							        <select id="RoomID" name="RoomID" style="width:100px"
+							       		ng-change="changeClassRoom(modelClassRoomSelected)" 
+							       		ng-options="s.name  for s in optionClassRoom" 
+							       		ng-model="modelClassRoomSelected" 
+							        ></select>
+							
+							        Tuần: 
+							        <select id="Week3" name="Week3" style="width:50px; text-align:center"
+							        	ng-change="changeWeek(modelWeekSelected)" 
+							        	ng-options="s.name  for s in optionWeek" 
+							        	ng-model="modelWeekSelected"
+							        ></select>
+							
+							        <button type="button" ng-click="getClassRoomTimeTable(modelBuildingSelected.name,
+							        modelClassRoomSelected.name,modelWeekSelected.name)" class="btn btn-info btn-xs">Tìm lịch </button>
+							    </div>
+							    <div style="margin: 10px 0px 0px; display: none;" class="tkbKhoa">
+							        Năm học: 
+							        <select id="YearStudy4" name="YearStudy4"style="width:100px"
+							        	ng-change="changeYear(modelYearSelected)" 
+							       		ng-options="s.name  for s in optionSchoolYear" 
+							       		ng-model="modelYearSelected" 
+							        ></select>
+									
+							        Học kỳ: <select id="TermID4" name="TermID4" style="width:100px"
+							        	ng-change="changeSemester(modelSemesterSelected)" 
+							       		ng-options="s.name  for s in optionSemester" 
+							       		ng-model="modelSemesterSelected" 
+							        ></select>
+									
+							        Khoa: <select id="DepartmentID" name="DepartmentID" style="width:100px"
+							        	ng-change="changeFaculty(modelFacultySelected)" 
+							       		ng-options="s.name  for s in optionFaculty" 
+							       		ng-model="modelFacultySelected" 
+							        ></select>
+							
+							        Tuần: 
+							        <select id="Week4" name="Week4" style="width:100px; text-align:center"
+							        	ng-change="changeWeek(modelWeekSelected)" 
+							        	ng-options="s.name  for s in optionWeek" 
+							        	ng-model="modelWeekSelected"
+							        ></select>
+							        
+							        <button type="button" onclick="Public_ExcelDepartmentSchedules()" class="btn btn-info btn-xs">Xuất Excel</button>
+							        <button type="button" ng-click="getFacultyTimeTable(modelFacultySelected.name,modelWeekSelected.name)" class="btn btn-info btn-xs">In TKB</button>
+							    </div>
+								
+								<div style="margin: 10px 0px 0px; display: none;" class="tkbTimPhong">
+							        Nhà: 
+							        <select id="BuildingID" name="BuildingID" style="width:100px"
+							       		ng-change="changeBuilding(modelBuildingSelected)" 
+							       		ng-options="s.name  for s in optionBuilding" 
+							       		ng-model="modelBuildingSelected" 
+							        ></select>
+							        Tiết bắt đầu: 
+							      	<input type="number" style="width:100px" min="1" max="20" name="txtTietBD" 
+							      		id="txtTietBD" 
+							      		ng-model="modelStartPeriod"
+							      		placeholder="Kíp bắt đầu">
+							        Tiết kết thúc:
+							        <input type="number" style="width:100px" min="1" max="20" name="txtSoTiet" id="txtSoTiet"
+							        	ng-model="modelEndPeriod" placeholder="Kíp kết thúc ">
+							        
+							        <button type="button" ng-click="getAvailableRooms(modelBuildingSelected.name,
+							       		 modelStartPeriod,modelEndPeriod,modelDay,modelMonth,modelYear)" class="btn btn-info btn-xs">Tìm phòng</button>
+							        <br>
+							        Ngày:
+							        <input type="number" style="width:100px" id="DayID" name="DayID" 
+							        	ng-model="modelDay"  placeholder="Nhập ngày">
+							        Tháng:
+							        <input type="number" style="width:100px" id="MonthID" name="MonthID" 
+							        	ng-model="modelMonth"  placeholder="Nhập tháng">
+							        Năm:
+							        <input type="number" style="width:100px" id="YearID" name="YearID" 
+							        	ng-model="modelYear"  placeholder="Nhập năm">	
+							        
+							       
+							       
+							    </div>
+								
+							</div>
+							<hr>
+							KẾT QUẢ:
+							<br>
+							<div ng-show="findRoomMode==false">
+								<table class="table table-bordered">
+								
+								<tr style="padding: 10px; border: 1px solid #33BEFF ">
+									<th style="background-color: #F2F3F4 " class="text-center bold">STT</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Ngày</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Lớp</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Môn học</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Giảng viên</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Phòng</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Thời gian</th>
+								</tr>
+								<tr ng-repeat="q in optionTimeTable">
+	
+									<td class="text-center">{{$index+1}}</td>
+									<td >
+										<div class="">{{q.date}}</div>
+									</td>
+									<td>
+										<div class="" >{{q.class_id}}</div>
+									</td>
+									<td>
+										<div class="" >{{q.subject_id}}</div>
+									</td>
+									<td class="">
+										<div >{{q.lecturer_name}}</div>
+									</td>
+									<td class="text-center">
+										<div class="" >{{q.classroom}}-{{q.building}}</div>
+									</td>
+									<td class="text-center">
+										<div class="" >{{q.start_hour}}:{{q.start_min}}-{{q.end_hour}}:{{q.end_min}}</div>
+									</td>
+								</tr>
+	
+	
+								
+							</table>	
+							</div>
+							<div ng-show="findRoomMode==true">
+								Danh sách phòng trống
+								<br>
+								<table class="table table-bordered">
+								
+								<tr style="padding: 10px; border: 1px solid #33BEFF ">
+									<th style="background-color: #F2F3F4 " class="text-center bold">STT</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">ID</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Phòng</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Các kíp còn sẵn</th>
+									
+									<th style="background-color: #F2F3F4 " class="text-center bold">Số chỗ ngồi</th>
+									<th style="background-color: #F2F3F4 " class="text-center bold">Booking</th>
+								</tr>
+								<tr ng-repeat="q in optionAvailableRooms">
+									
+									<td class="text-center">{{$index+1}}</td>
+									<td >
+										<div class="">{{q.id}}</div>
+									</td>
+									<td>
+										<div class="" >{{q.ten}}</div>
+									</td>
+									<td>
+										<div class="" >
+											<span ng-repeat="s in q.available_period_list">
+												{{s}},
+											</span> 
+										</div>
+									</td>
+									
+									<td>
+										<div class="" >{{q.seats}}</div>
+									</td>
+									<td>
+										<button type="button" ng-click="clickBookRoom(q)" 
+										class="btn btn-default btn-xs">booking</button>
+									</td>
+									
+								</tr>
+	
+	
+								
+							</table>
+								
+								
+							</div>		
+							
+							
+							<!-- =================Booking dialog======================== -->
+							<div id="modalBooking" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									
+									<div class="modal-content">
+										<div class="modal-header bg-info">
+											
+											<h4 class="modal-title text-center">Booking room</h4>
+											
+										</div>
+										<div class="modal-body">
+											<div class="row">
+						           	 			<div class="col-md-1"></div>
+						           	 			<div class="col-md-3"><h4 class="bold">Phòng</h4></div>
+						           	 			
+						           	 			 <div class="col-md-6">
+						           	 				<h4 class="">{{selected_room.ten}}</h4>
+						           	 			 </div>
+						           	 			 
+						           	 		</div>
+						           	 		<br>
+						           	 		<div class="row">
+						           	 			<div class="col-md-1"></div>
+						           	 			<div class="col-md-3"><h4 class="bold">Kíp bắt đầu:</h4></div>
+						           	 			
+						           	 			 <div class="col-md-6">
+						           	 				{{selected_start_period}}
+						           	 			 </div>
+						           	 			 
+						           	 		</div>
+						           	 		<br>
+						           	 		<div class="row">
+						           	 			<div class="col-md-1"></div>
+						           	 			<div class="col-md-3"><h4 class="bold">Kíp kết thúc:</h4></div>
+						           	 			
+						           	 			 <div class="col-md-6">
+						           	 				{{selected_end_period}}
+						           	 				
+						           	 			 </div>
+						           	 			 
+						           	 		</div>
+						           	 		
+											<br>
+											
+											<div class="row">
+												<div class="col-md-1"></div>
+												<div class="col-md-3">
+													<h4 class="bold">Lí do</h4>	
+												</div>
+												
+						           	 			 <div class="col-md-6">									
+													<input type="text" class="form-control" 
+														placeholder="Nhập lý do đặt phòng"
+														ng-model="modeBookingReason" ng-maxlength="500"
+														  
+													>
+												</div>
+												
+											</div>
+											
+										</div>
+										
+										
+										
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal" ng-click="clickSubmitBooking(selected_room.id,selected_start_period,selected_end_period,modeBookingReason,modelDay,modelMonth,modelYear)">Submit</button>
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal" ng-click="clickClose()">Đóng</button>
+											
+										</div>
+									</div>
+		
+								</div>
+							</div>
+							
+							<!-- -OLD kiennt
+								<div class="row">
+									
+									<div class="col-md-10 bold" style="padding-left:20px">
+										<span style="font-size: 16px; color:black" class="bold">Xem lịch học theo ngày</span>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-1  text-right">
+										Ngày
+									</div>
+									<div class="col-md-2">
+										<input id="d"  type="number" class="form-control" name="d"
+										 ng-model="modelDay" ng-maxlength="2" required
+										  placeholder={{modelDay}}
+										>
+									</div>
+									<div class="col-md-1 text-right">
+										Tháng
+									</div>
+									<div class="col-md-2">
+										<input id="ym"  type="number" class="form-control" name="m"
+										 ng-model="modelMonth" ng-maxlength="2" required
+										  placeholder={{modelMonth}}
+										>
+									</div>
+									<div class="col-md-1 text-right">
+										Năm
+									</div>
+									<div class="col-md-2">
+										<input id="y"  type="number" class="form-control" name="y"
+										  ng-model="modelYear" ng-maxlength="5" required
+										  placeholder={{modelYear}}
+										>
+									</div>
+									<div class="col-md-1">
+										<button type="button" class="btn btn-info btn-block btn-login" 
+							       		ng-click="clickViewDayTimeTable(modelDay,modelMonth,modelYear,
+							       		modelSubjectCode,modelClass,modelLectureCode)">Xem</button>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-1 text-right">
+										Mã môn
+									</div>
+									<div class="col-md-2">
+										<input id="s"  type="text" class="form-control" name="s"
+										 ng-model="modelSubjectCode" ng-maxlength="50" required
+										  placeholder="Mã môn học"
+										>
+									</div>
+									<div class="col-md-1 text-right">
+										Lớp
+									</div>
+									<div class="col-md-2">
+										<input id="c"  type="text" class="form-control" name="c"
+										 ng-model="modelClass" ng-maxlength="2" required
+										  placeholder="Mã lớp"
+										>
+									</div>
+									<div class="col-md-1 text-right">
+										Mã GV
+									</div>
+									<div class="col-md-2">
+										<input id="l"  type="text" class="form-control" name="l"
+										  ng-model="modelLectureCode" ng-maxlength="150" required
+										  placeholder="Mã giảng viên"
+										>
+									</div>
+									
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-11 bold">
+										<span style="font-size: 16px; color:black" class=" bold ">Kết quả</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="table-responsive">
+										<table ng-table="tableParamsDayTimeTable" class="table">
+											<tbody
+												ng-repeat="p in tableDisplayDayTimeTable">
+												<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+													
+													<td class="rowTd text-center" data-title="'STT'">{{$index+1}}</td>
+													<td class="rowTd" data-title="'Môn học'" sortable="'subject_name'">{{p.subject_name}}</td>
+													<td class="rowTd" data-title="'Nhà'" sortable="'building_name'">{{p.building_name}}</td>
+													<td class="rowTd" data-title="'Phòng'" sortable="'room_name'">{{p.room_name}}</td>
+													<td class="rowTd " data-title="'Lớp'" sortable="'class_id'">{{p.class_id}}</td>
+													<td class="rowTd " data-title="'Kíp'" sortable="'period'">{{p.period}}</td>
+													<td class="rowTd " data-title="'Lecture'" sortable="'lecture'">{{p.lecture}}</td>
+													
+													
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+			                    
+			                     -->	
+			                    </div>    	
+							</div>
+		           		</div>
+		         	</div>
+		          
+			 	</div>
+				
+			</div>
+		</div>
+
+   </div>
+</div>

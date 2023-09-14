@@ -1,0 +1,111 @@
+<!-- BEGIN HEADER INNER -->
+<div class="page-header-inner">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+        <a><img src="assets/icon/ptit_icon.png" style="height: 85px; width:auto!important; padding-bottom: 15px!important;margin: 0px!important;" alt="logo" class="logo-default" /> </a>
+        <div class="menu-toggler sidebar-toggler">
+            <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+        </div>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN PAGE ACTIONS -->
+    <!-- DOC: Remove "hide" class to enable the page header actions -->
+    <div class="page-actions">
+        <div class="portlet box green">
+   			<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+            	<div class="caption">
+                  <!--  	<img src={{tmpOrgLogo}} height="32" width="64">
+                    	<span class="caption-subject bold uppercase">{{tmpOrg}}</span>
+                	</div> -->
+                	
+	                <form >
+                   		<span style="color:white" class="caption-subject bold uppercase" >HỆ THỐNG QUẢN TRỊ CƠ SỞ VẬT CHẤT</span>
+			        	<!-- <button ng-click="openFullscreen();">Max</button>
+						<button ng-click="closeFullscreen();">Min</button> -->
+						<!-- <a class="btn btn-circle btn-icon-only btn-default fullscreen" data-container="false"
+						 data-placement="bottom" ng-click="openFullscreen();" data-original-title="" title=""> </a> -->
+					</form>	
+				</div>
+           	</div>
+		</div>
+    </div>
+    <!-- END PAGE ACTIONS -->
+    <!-- BEGIN PAGE TOP -->
+    <div class="page-top">
+        <!-- BEGIN HEADER SEARCH BOX -->
+        <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+        <form class="search-form hide" action="#" method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
+                <span class="input-group-btn">
+                    <a href="javascript:;" class="btn submit">
+                        <i class="icon-magnifier"></i>
+                    </a>
+                </span>
+            </div>
+        </form>
+        <!-- END HEADER SEARCH BOX -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li ng-show = "userTypes.length>1" style="padding-top:20px">
+                    <div class="input-group input-icon right">
+                        <select class="form-control" 
+                            ng-model="role"
+                            ng-options="i.type_name for i in userTypes"
+                            ng-change="ch_actor(role.id)">
+                        </select> 
+                    </div>
+                </li>
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+
+                <li class="dropdown dropdown-user dropdown-dark">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <span class="username username-hide-on-mobile">{{tmpUser}}</span>
+                        <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                        <img alt="img not found" class="img-circle" src="{{tmpAvatar}}"  onerror="this.src='img/user.png';" /> 
+                    </a>
+                        
+                       
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="#/myprofile">
+                                <i class="icon-user"></i> Tài khoản </a>
+                        </li>
+
+                        <li class="divider"> </li>
+
+                        <li>
+                            <a href="#/login">
+                                <i class="icon-key"></i> Đăng xuất </a>
+                        </li>
+                        <!-- <li>
+                            <span>
+                                <select class="form-control" 
+                                    ng-model="role"
+                                    ng-options="i.type_name for i in userTypes"
+                                    ng-change="f1(r3.com_id)" >
+                                </select> 
+                            </span>
+                        </li> -->
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR DROPDOWN -->
+                <!-- <li class="dropdown dropdown-extended quick-sidebar-toggler hide">
+                    <span class="sr-only">Toggle Quick Sidebar</span>
+                    <i class="icon-logout"></i>
+                </li> -->
+                <!-- END QUICK SIDEBAR DROPDOWN -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END PAGE TOP -->
+</div>
+<!-- END HEADER INNER

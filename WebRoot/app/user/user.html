@@ -1,0 +1,295 @@
+
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="container-fluid container-fullw ">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="portlet box blue" ng-hide="isCreateNewUser">
+						<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+							<div class="caption">
+								<i class="fa fa-globe"></i>
+								<span class="caption-subject bold uppercase">Danh sách người dùng</span>
+							</div>
+							<div class="actions">
+								<button class="button btn-primary"  ng-click="clickAddNewUser()">
+								<span class="glyphicon glyphicon-plus-sign"></span></button>
+
+								<!-- <button class="button btn-primary" ng-click="exportToExcel('#table1')">
+							      	<i class="fa fa-file-excel-o text-bold" style="color:white;" aria-hidden="true"></i>
+							    </button> -->
+							</div>
+						</div>
+
+						<div class="portlet-body">
+							<div class="panel-body">
+								<div ng-show="isLoading"><i class="fa fa-spinner fa-pulse fa-3x" aria-hidden="true"></i> Đang tải dữ liệu...</div>
+								<div class="table-responsive" ng-hide="isLoading">
+									<!-- <table ng-table="tableParamsUser" class="table">
+										<tbody ng-repeat="p in tableDisplayUser">
+											<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+												<td width="5%" class="rowTd padding-right-0">
+													<a type=button class="btn-o btn-sm" uib-tooltip="Xem chi tiết"
+													ng-click="clickUserSelected(p)">
+														<i class="fa fa-check" ng-if="currentUserId==p.id"></i>
+														<i class="fa fa-circle-o" ng-if="currentUserId!=p.id"></i>
+													</a>
+												</td>
+												<td class="rowTd text-center" data-title="'STT'"  >{{$index+1}}</td>
+												<td class="rowTd" data-title="'Họ tên'"   sortable="'full_name'"  filter="{full_name: 'text'}" >{{p.full_name}}</td>
+												<td class="rowTd text-center" data-title="'Email'" 		sortable="'email'"  filter="{email: 'text'}">{{p.email}}</td>
+												<td class="rowTd text-center" data-title="'Điện thoại'" 		sortable="mobile"  filter="{mobile: 'text'}">{{p.mobile}}</td>
+												<td class="rowTd text-center" data-title="'Vai trò'" sortable="'user_type_name'">{{p.type_name}}</td>
+												<td class="rowTd text-center" >
+													<div class="pull-right margin-right-10">
+														<span style="font-size: 15px; color:red" value="Remove"
+															ng-click="clickDeleteUser(p)">
+															<i class="fa fa-trash" aria-hidden="true"> </i>
+														</span>Xóa
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table> -->
+									<div class="table-scrollable">
+										<table class="table table-striped table-bordered table-advance table-hover" ng-table="tableParamsUser">
+									<thead>
+										<tr>
+											<th>
+												 </th>
+											<th>
+												 STT </th>
+											<th>
+												<i class="fa fa-qrcode"></i> Họ tên </th>
+										
+												<th>
+													<i class="fa fa-qrcode"></i> Email </th>
+												<th>
+													<i class="fa fa-check-square-o "></i> Điện thoại </th>
+													<th>
+														<i class="fa fa-check-square-o "></i> Vai trò </th>
+														
+															<!-- <th>
+														<i class="fa fa-check-square-o "></i> Xem chi tiết công việc </th> -->
+													</th>
+										</tr>
+									</thead>
+								
+									<tbody>
+										
+										<tr ng-repeat="q in tableDisplayUser">
+											<td width="5%" class="rowTd padding-right-0">
+												<a type=button class="btn-info btn-o btn-sm" uib-tooltip="Xem chi tiết"
+													ng-click="clickUserSelected(q)">
+													<i class="fa fa-check" ng-if="currentUserId==q.id"></i>
+													<i class="fa fa-circle-o" ng-if="currentUserId!=q.id"></i>
+												</a>
+											</td>
+											<td align="center">{{$index+1}}</td>
+											<td align="center">{{q.full_name}}</td>
+										
+		
+										  <td align="center">{{q.email}} </td>
+										  <td align="center">{{q.mobile}}</td>
+										  <td align="center">{{q.type_name}}</td>
+									  
+										 <td  style="font-size: 15px; color:red" value="Remove"
+										 ng-click="clickDeleteUser(q)"> <i class="fa fa-trash" aria-hidden="true"> </i> Xóa</td>
+									 </tr>
+									   
+								</tbody>
+										</table>
+									</div>
+								</div>	
+							</div>
+
+							<div class="panel-body">
+								<div class="table-responsive" id="table1" hidden>
+									<table ng-table="tableParamsUser" class="table">
+										<tbody ng-repeat="p in tableDataUser | filter:searchName">
+											<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+												<td class="rowTd text-center" data-title="'STT'"  >{{$index+1}}</td>
+												<td class="rowTd" data-title="'Họ tên'"   sortable="'full_name'">{{p.full_name}}</td>
+												<td class="rowTd text-center" data-title="'Email'" 		sortable="'email'">{{p.email}}</td>
+												<td class="rowTd text-center" data-title="'Điện thoại'" 		sortable="mobile">{{p.mobile}}</td>
+												<td class="rowTd text-center" data-title="'Mã số GV'" 		sortable="code">{{p.code}}</td>
+												<td class="rowTd text-center" data-title="'Vai trò'">
+													<div ng-repeat="q in p.types" style="border-width: 1px;border-style: dashed;background-color: rgba(0, 255, 0, 0.1);">
+														<span style="font-size: 15px;">{{q.type==1?'GV':"CBQL"}}</span>
+														<br>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-white"  ng-show="isCreateNewUser"> 
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+								<div class="caption">
+									<i class="fa fa-globe"></i>
+									<span class="caption-subject bold uppercase">Thêm mới người dùng  </span>
+								</div>
+								<div class="actions">
+									<a class="btn btn-circle btn-icon-only btn-default" ng-click="isCreateNewUser=false">
+										<!-- <i class="icon-action-undo"></i> -->
+										<i class="fa fa-rotate-left"></i>
+									</a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Họ tên</h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Họ và tên..." ng-model="userFullname">
+									</div>
+									<div class="col-sm-2">
+										<button class="btn btn-info btn-block btn-login" ng-click="addUser()">Thêm người dùng</button>	  
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Email</h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Email..." ng-model="userEmail">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Password</h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="password" class="form-control" placeholder="Password..." ng-model="userPassword">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Mobile</h4>	
+									</div>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Mobile number..." ng-model="userMobile">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+										<h4 class="bold">Vai</h4>	
+									</div>
+									<div class="col-md-6">
+										<select type="text"  class="form-control" data-ng-options="t.name for t in userType"
+										data-ng-model="selectedUserType"></select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-white " ng-if="isUserSelected">
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title padding-top-0 padding-bottom-0 min-height-40">
+								<div class="caption">
+									<i class="fa fa-globe"></i>
+									<span class="caption-subject bold uppercase">Chi tiết người dùng: {{modelUserSelected.full_name}}  </span>
+								</div>
+								<div class="actions">
+
+								</div>
+							</div>
+
+							<div class="portlet-body" >	
+								<tabset class="tabable">
+									<tab heading="Thông tin người dùng" active="selectedTabIsUserInfo" ng-click="userinfoTab()">
+										<div class="panel-body">	
+
+											<div class="row">
+												<div class="col-md-1"></div>
+												<div class="col-md-2"><h5 class="bold">Họ tên:</h5></div>
+
+												<div class="col-md-6">
+													<input id="full_name_id" type="text" class="form-control" 
+													required
+													ng-model="modelUserSelected.full_name"> 
+												</div>
+												<div class="col-md-2">
+													<a type=button class="btn btn-info btn-block btn-login" 
+													ng-click="updateProfile(modelUserSelected)"><span>Cập nhật</span></a> 
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-1"></div>
+												<div class="col-md-2">
+													<h5 class="bold">Email:</h5>	
+												</div>
+
+												<div class="col-md-6">									
+													<input type="text" class="form-control" name="email"
+													ng-model="modelUserSelected.email" ng-maxlength="50" required
+													>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-1"></div>
+												<div class="col-md-2">
+													<h5 class="bold">Điện thoại:</h5>	
+												</div>
+												<div class="col-md-6">
+													<input id="mobile_id" type="text" class="form-control" ng-model="modelUserSelected.mobile"> 
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-1"></div>
+												<div class="col-md-2">
+													<h5 class="bold">Vai:</h5>	
+												</div>
+												<div class="col-md-6">
+													<select id="capacity" name="capacity" class="form-control select_class" ng-disabled="true"
+													ng-options="s.name for s in userType" ng-model="UserTypeSelect">
+													<option value="" disabled selected >{{modelUserSelected.type_name}}</option>                       
+												</select>
+												</div>
+											</div>
+										</div>
+									</tab>
+
+								    <tab heading="Giảng viên - Lớp" active="selectedTabIsUserClass" ng-click="userclassTab()" class="hide">
+								    	<div class="panel" ng-include="'app/user/teacherclass.html'"></div>
+								    </tab>
+
+						           	<tab heading="Phản hồi của giảng viên" active="selectedTabIsUserHistory" ng-click="userhistoryTab()" class="hide">					  
+						           	<div class="panel-body">	
+						           		<div class="table-responsive">
+						           			<table ng-table="tableParamsUserJobs" class="table">
+						           				<tbody ng-repeat="p in tableDisplayUserJobs | filter:searchName">
+						           					<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+						           						<td class="rowTd" data-title="'STT'"  >{{$index+1}}</td>
+						           						<td class="rowTd" data-title="'Ngày tạo'" sortable="'created_time'">{{p.created_time}} </td>
+						           					</tr>
+						           				</tbody>
+						           			</table>
+						           		</div>	
+						           	</div>					
+					           
+						           	</tab>
+						       	</tabset>
+						   </div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,65 @@
+<div class="panel-heading">
+	Danh sách lớp được phân công
+	<a class="pull-right" type="button" class="btn btn-info" ng-click="clkAddClass2User();showAddClass2User=true">
+	Thêm lớp</a> 
+</div>	
+<div class="panel-body">	
+	<!-- <div class="row">
+		<h4> Danh sách lớp được phân công</h4>
+	</div> -->
+	<div class="text-center" ng-show="teacherClasses.length==0"><h6>Chưa có lớp nào</h6></div>
+	<br>
+
+	<div ng-show="teacherClasses.length>0">
+		<div ng-repeat="p in teacherClasses track by $index" >
+			<span class="fa fa-close" ng-click="delClassFromUser($index)"></span>
+			<span style="font-size: 15px; color:blue">{{p.class_name}}</span>
+			<br>
+		</div>
+	</div>
+	<hr>
+	<div class="row" ng-show="showAddClass2User">
+		<div class="row">
+			<div class="col-md-4 text-right">
+				<h5 class="bold">Chọn môn học</h5>	
+			</div>
+			<div class="col-md-7">
+				<select id="single" class="form-control select_prog"
+					ng-options="p.prog_name for p in optionProg" 
+					ng-model="modelProgSelected" 
+					ng-change="ChangeProg(modelProgSelected)">
+					<option></option>	                    
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 text-right">
+				<h5 class="bold">Chọn lớp</h5>	
+			</div>
+			<div class="col-md-7">
+				<select id="single" class="form-control select_class"
+				ng-options="p.class_name for p in optionClass" 
+				ng-model="modelClassSelected" 
+				ng-change="ChangeClass(modelClassSelected)">
+					<option></option>	                    
+				</select>
+			</div>
+		</div>
+
+		<br>
+		<div class="row">
+			<div class="col-md-5">
+
+			</div>
+			<div class="col-md-4">
+				<a type=button class="btn btn-info btn-block btn-login" 
+				ng-click="addClassToUser()"><span>Thêm</span></a> 
+			</div>
+			<div class="col-md-2">
+				<a type=button class="btn btn-warning" 
+				ng-click="showAddClass2User=false"><span>Hủy</span></a>
+			</div>
+		</div>
+	</div>
+</div>					

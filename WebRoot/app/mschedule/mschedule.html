@@ -1,0 +1,178 @@
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="container-fluid container-fullw">
+			<div class="row" >
+				<div class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-calendar"></i>
+							<span class="caption-subject bold uppercase"> Phân công lịch trực (Chức năng đang phát triển)</span>
+							<span class="caption-helper"></span>
+						</div>
+						<div class="actions">
+							<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+						</div>
+					</div>
+					<div class="portlet-body" style="min-height:375px">
+                        <!-- <div class="row">
+                            <a class="btn btn-sm btn-primary" value="Print"  ng-click="exportReport()">
+                                <i class="fa fa-print"></i>
+                            </a>
+                        </div> -->
+
+                        <div class="col-12">
+                            <daypilot-scheduler  id="timetable" config="config" events="events"></daypilot-scheduler>
+                        </div>
+
+
+                        <div id="s-lc-time-grid-pagination" class="s-lc-time-grid-pagination">
+                        </div>
+
+                        <!-- legend -->
+                        <!-- <div class="s-lc-time-grid-legend text-center" id="" style="padding-top:15px">
+                            <span class="label-eq-cont" data-toggle="tooltip" data-placement="top" title="" data-original-title="Phòng trống trong thời gian này, click vào để đặt!"><span class="label label-eq-avail">&nbsp;&nbsp;</span> Trống lịch</span>
+                            <span class="label-eq-cont" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lượt đặt của bạn chờ xét duyệt."><span class="label label-eq-pending">&nbsp;&nbsp;</span> Lượt bạn đặt</span>
+                            <span class="label-eq-cont" data-toggle="tooltip" data-placement="top" title="" data-original-title="Không đặt được phòng trong khoảng thời gian này"><span class="label label-eq-unavailable">&nbsp;&nbsp;</span> Không đặt được</span>    
+                        </div> -->
+
+                        <!-- <div id="s-lc-eq-form-box" class="s-lc-spaces-setup-info" style="display: none;" role="region" aria-label="booking form" aria-live="polite">
+                            <form id="s-lc-eq-form-times" class="form-horizontal" method="post">
+                                <fieldset>
+                                    <div id="s-lc-eq-bwell" class="well" tabindex="0">&nbsp;</div><div class="alert alert-warning" style="margin-top: 15px">Please be sure to complete <b>ALL</b> steps in the booking process to ensure your booking is held.</div>
+                                    <div id="s-lc-eq-bform-inner" class="col-sm-offset-5">
+                                        <button class="btn btn-primary" name="submit_times" id="submit_times">Submit Times</button>&nbsp;
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div> -->
+
+                        <div id="s-lc-eq-form" style="clear:both; display: none;" role="region" aria-live="polite" aria-label="Booking details"></div>
+
+                        <div id="s-lc-eq-errors" class="alert alert-danger" style="display: none;" role="region" aria-live="polite" aria-label="Error encountered"></div>
+
+                        <div id="s-lc-eq-success" style="display: none;" role="region" aria-live="polite" aria-labelledby="s-lc-eq-success-title">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="abc" data-backdrop="static"
+data-keyboard="false" tabindex="-1" style="z-index:13000!important">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-blue bg-font-blue">
+                <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true"></button>
+                <h4 class="modal-title text-bold text-center">Phân công trực</h4>
+            </div>
+            <div class="modal-body font-blue-chambray">
+                <form role="form" class="horizontal-form margin-bottom-40" name="formSched" ng-submit="clickLogin()">
+                    <div class="form-group">
+                        <span class="input-icon">
+                            <label>Ngày</label>                         
+                            <input type="text" placeholder="" class="form-control"
+                            ng-model="mAny" disabled>
+                        </span>
+                    </div> 
+                    <div class="form-group">
+                        <span class="input-icon">
+                            <label>Ca</label>                         
+                            <input type="text" placeholder="" class="form-control"
+                            ng-model="mAny" disabled>
+                        </span>
+                    </div> 
+                    <div class="form-group">
+                        <span class="input-icon">
+                            <label>Nhân viên trực</label>                         
+                            <select id="single" class="form-control select"
+                                    ng-options="s.name  for s in optionCampusOwnerType" 
+                                    ng-model="campusareaOwnerType" >
+                                        <option>-------Chọn -------</option>                        
+                            </select>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <span class="input-icon">
+                            <label>Điểm trực</label>                         
+                            <select id="single" class="form-control select"
+                                    ng-options="s.name  for s in optionCampusOwnerType" 
+                                    ng-model="campusareaOwnerType" >
+                                        <option>-------Chọn -------</option>                        
+                            </select>
+                        </span>
+                    </div>
+                    
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+	html, body {
+         margin: 0;
+         padding: 0;
+         font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+         font-size: 14px;
+     }
+
+     #calendar {
+         max-width: 1100px;
+         margin: 40px auto;
+     }
+
+     .fc-day-today {
+       background: #fadbd8  !important;
+       border: none !important;
+    }
+
+    .fc-unthemed .fc-today {
+     background: #fadbd8  !important;
+    }
+
+
+    html, body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+          font-size: 14px;
+        }
+
+        #calendar {
+          max-width: 68%;
+          margin: 40px auto;
+        }
+
+        .btn {
+          font-size:1.9em; 
+          
+        }
+
+
+        .s-lc-eq-avail, .label-eq-avail, .s-lc-eq-period-available {
+  background: #14951F linear-gradient(135deg, rgba(255,255,255,.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.2) 50%, rgba(255,255,255,.2) 75%, transparent 75%, transparent) !important;
+  border-color: #14951F !important;
+}       
+.s-lc-eq-pending, .label-eq-pending, .s-lc-eq-period-pending {
+  background: #F59F16 linear-gradient(45deg, rgba(255,255,255,.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.2) 50%, rgba(255,255,255,.2) 75%, transparent 75%, transparent) !important;
+  border-color: #F59F16 !important;
+}       
+.s-lc-eq-checkout, .s-lc-eq-r-unavailable, .s-lc-eq-r-padding, .label-eq-unavailable, .s-lc-eq-period-booked {
+  background: #C91908 linear-gradient(45deg, rgba(255,255,255,.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.2) 50%, rgba(255,255,255,.2) 75%, transparent 75%, transparent) !important;
+  border-color: #C91908 !important;
+}
+
+</style>

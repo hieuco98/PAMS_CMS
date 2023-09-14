@@ -1,0 +1,469 @@
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="container-fluid container-fullw">
+			<div class="row" >
+				<div class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-calendar"></i>
+							<span class="caption-subject bold uppercase"> Chọn phòng học và ngày</span>
+							<span class="caption-helper"></span>
+						</div>
+						<div class="actions">
+							<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div id="" class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <span><label class="hidden-sm bold" for="capacity">
+                                        Kỳ học
+                                    </label></span>
+                                    <span><select id="capacity" name="capacity" class="form-control select_class"
+                                        ng-options="s.name for s in semesterList" ng-model="mSelectedSemester" ng-change="ChangeSemester(mSelectedSemester)">
+                                        <option></option>                       
+                                    </select></span>
+                                </div>
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <label class="hidden-sm bold" for="loc">Tòa nhà</label>
+                                    <select id="loc" name="loc" class="form-control select_class"
+                                        ng-options="s.name for s in campusLocations" ng-model="mSelectedBuild" ng-change="ChangeBuiding(mSelectedBuild)">
+                                        <option></option>                       
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <label class="hidden-sm bold" for="type">Tầng</label>
+                                    <select id="type" name="type" class="form-control select_class"
+                                        ng-options="s.name for s in floorList" ng-model="mSelectedFloor" ng-change="ChangeFloor(mSelectedFloor)">
+                                        <option></option>                       
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <span><label class="hidden-sm bold" for="capacity">
+                                        Phòng học
+                                    </label></span>
+                                    <span><select id="capacity" name="capacity" class="form-control select_class"
+                                        ng-options="s.name for s in roomList" ng-model="mSelectedRoom" ng-change="ChangeRoom(mSelectedRoom)">
+                                        <option></option>                       
+                                    </select></span>
+                                </div>
+                              
+                                <div class="col-md-2 col-xs-12 col-sm-12">
+                                    <span><label class="hidden-sm bold" for="capacity">
+                                        Ngày
+                                    </label></span>
+                                    <span><input class="form-control form-control-inline date-picker" type="date" name="batch_start" ng-model="findDate" data-date-format="dd/mm/yyyy"/></span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div id="" class="row" style="padding-top: 10px; padding-right:10px">
+
+                            <!-- <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="findTimetableClass(mSelectedBuild,mSelectedRoom,findDate)" style="font-size:120%"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Tìm kiếm theo </button> -->
+                        <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="findTimetableClass(mSelectedBuild,mSelectedRoom,findDate,mSelectedSemester)" style="font-size:120%"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Tìm kiếm</button>
+                    </div>
+                      
+                    </div>
+
+                </div>
+            </div>
+            	<div class="row">
+			<div class="col-md-12">
+				<div class="portlet box blue">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-gift"></i> THỐNG KÊ CÁC TIẾT HỌC TRONG NGÀY </div>
+	                    <!-- <div class="actions">
+                        	<a href="" class="btn btn-default btn-sm" ng-click="refreshTable()">
+	                            <i class="fa fa-refresh" ng-if="!l0"></i><i class="fa fa-refresh fa-spin" ng-if="l0"></i> Tải Lại 
+                            </a>
+	                        <a href="" class="btn btn-default btn-sm" ng-click="createClassesInfoPopUp()">
+	                            <i class="fa fa-plus"></i> Tạo Sản Phẩm Mới 
+                            </a>                            
+	                    </div> -->
+	                </div>
+	                <div class="portlet-body bg-body">
+						<table ng-table="tableParamsClasses" class="table fadeInDown animated">
+							<tr ng-repeat="p in tableDisplayClasses">
+								<td class="rowTd  padding-right-0">
+									<a type=button class="btn btn-outline btn-sm c-btn-border-1x c-btn-blue-dark" uib-tooltip="Thông tin tiết học"
+										ng-click="clickGetInfoClasses(p)">
+										<i class="fa fa-check" ng-if="classes_id==p.id"></i>
+										<i class="fa fa-circle-o" ng-if="classes_id!=p.id"></i>
+									</a>
+								</td>
+                                <td class="rowTd" data-title="'Mã môn học'"   sortable="'pro_name'">{{p.subject_id}}</td>
+								<td class="rowTd" data-title="'Tên môn học'"   sortable="'pro_name'">{{p.subject_name}}</td>
+                                <td class="rowTd" data-title="'Mã lớp'"   sortable="'pro_name'">{{p.class_id}}</td>
+								<!-- <td class="center" data-title="'Chi tiết sản phẩm'"   sortable="'pro_detail'">{{p.pro_tag}}</td> -->
+								<td class="center" data-title="'Thời gian'"   sortable="'pro_manuallink'"> <a>{{findDate}}</a></td>
+								<td class="center" data-title="'Tiết'"   sortable="'pro_tag'">{{p.starting_block}}</td>
+                                <td class="center" data-title="'Thứ'"   sortable="'pro_tag'">{{p.day_of_week}}</td>
+                                <td class="center" data-title="'Giảng viên'"   sortable="'pro_tag'">{{p.Lecturer}}</td>
+							</tr>
+						</table>
+	                </div>
+				</div>
+			</div>
+		</div>
+        <div class="row">
+			<div class="col-md-12">
+				<div class="portlet box blue">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-gift"></i> Thời khóa biểu tuần {{week_no}} kì {{semesterSelect}} phòng {{class_name}} </div>
+	                    <!-- <div class="actions">
+                        	<a href="" class="btn btn-default btn-sm" ng-click="refreshTable()">
+	                            <i class="fa fa-refresh" ng-if="!l0"></i><i class="fa fa-refresh fa-spin" ng-if="l0"></i> Tải Lại 
+                            </a>
+	                        <a href="" class="btn btn-default btn-sm" ng-click="createClassesInfoPopUp()">
+	                            <i class="fa fa-plus"></i> Tạo Sản Phẩm Mới 
+                            </a>                            
+	                    </div> -->
+	                </div>
+                    <div class="portlet-body bg-body">
+                        <daypilot-scheduler id="timetable" config="config" events="events" ng-show ="isCalendarCheck"></daypilot-scheduler>
+                        <div id="" class="row" style="padding-top: 10px; padding-right:10px">
+
+                            <!-- <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="findTimetableClass(mSelectedBuild,mSelectedRoom,findDate)" style="font-size:120%"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Tìm kiếm theo </button> -->
+                        <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click="UpdateTimetable(mSelectedBuild,mSelectedRoom,findDate)" style="font-size:120%" ng-show ="isCalendarCheck"><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Cập nhật lịch sử dụng phòng</button>
+                    </div>
+						<!-- <table ng-table="tableParamsClasses" class="table fadeInDown animated">
+							<tr ng-repeat="p in tableDisplayClasses">
+								<td class="rowTd  padding-right-0">
+									<a type=button class="btn btn-outline btn-sm c-btn-border-1x c-btn-blue-dark" uib-tooltip="Thông tin tiết học"
+										ng-click="cl2(p)">
+										<i class="fa fa-check" ng-if="s01==p.id"></i>
+										<i class="fa fa-circle-o" ng-if="s01!=p.id"></i>
+									</a>
+								</td>
+                                <td class="rowTd" data-title="'Mã môn học'"   sortable="'pro_name'">{{p.subject_id}}</td>
+								<td class="rowTd" data-title="'Tên môn học'"   sortable="'pro_name'">{{p.subject_name}}</td>
+                                <td class="rowTd" data-title="'Mã lớp'"   sortable="'pro_name'">{{p.class_id}}</td>
+							
+								<td class="center" data-title="'Thời gian'"   sortable="'pro_manuallink'"> <a>{{findDate}}</a></td>
+								<td class="center" data-title="'Kíp'"   sortable="'pro_tag'">{{p.period}}</td>
+                                <td class="center" data-title="'Thứ'"   sortable="'pro_tag'">{{p.day_of_week}}</td>
+                                <td class="center" data-title="'Giảng viên'"   sortable="'pro_tag'">{{p.Lecturer}}</td>
+							</tr>
+						</table> -->
+	                </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="abc" data-backdrop="static"
+data-keyboard="false" tabindex="-1" style="z-index:13000!important">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-blue bg-font-blue">
+                <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true"></button>
+                <h4 class="modal-title text-bold text-center">Đặt phòng</h4>
+            </div>
+            <div class="modal-body font-blue-chambray">
+                <h3>Hahaha ...... hohohoh....hihihi</h3>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="modal fade" id="event_details" data-backdrop="static"
+data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+            <div class="modal-header bg-blue bg-font-blue">
+                <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true"></button>
+                <h4 class="modal-title bold text-center uppercase"><span>Thông tin chi tiết:</span></h4>
+            </div>
+            <div class="modal-body font-blue-chambray">
+                <div class="portlet light no-padding margin-bottom-0">
+                   <div class="portlet-body">
+                        <div class="row">
+                                <div class="col-md-3"><h5 style="font-weight:bold;">Môn học</h5></div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                    <div class="">
+                                        <input type="text" ng-model= "quizSession.prog_name" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><h5 style="font-weight:bold;">Mã môn học</h5></div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="">
+                                        <input type="text" ng-model= "quizSession.prog_code" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span><button class="btn btn-danger" data-dismiss="modal">Đóng lại</button></span>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="row"  ng-show="isClassesSelected==true">
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="caption-subject bold">
+                       Tổ chức: {{modelClassesSelected.name}}  </div>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                
+                
+                <div class="panel-body" >	
+                
+                    <div class="row">
+                            
+                            <div class="col-md-3 text-right"><h5 class="bold">Tên </h5></div>
+                            
+                             <div class="col-md-6">
+                                <input id="name_id" type="text" class="form-control" 
+                                placeholder={{modelClassesSelected.name}} ng-model="modelName"> 
+                             </div>
+                             
+                        </div>
+                        <div class="row">
+                        
+                        <div class="col-md-3 text-right">
+                            <h5 class="bold">Email</h5>	
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" 
+                            placeholder={{modelClassesSelected.email}} ng-model="modelEmail">
+                        </div>
+                        <div class="col-sm-2">
+                                                      
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-3 text-right">
+                            <h5 class="bold">Mô tả</h5>	
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" 
+                            placeholder={{modelClassesSelected.desc}} ng-model="modelDesc">
+                        </div>
+                        <div class="col-sm-2">
+                                                      
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-3 text-right">
+                            <h5 class="bold">Url</h5>	
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" 
+                            placeholder={{modelClassesSelected.url}} ng-model="modelUrl">
+                        </div>
+                        <div class="col-sm-2">
+                                                      
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" >
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                             <a type=button class="btn btn-info btn-block btn-login" 
+                              ng-click="updateOrg(modelName,modelEmail,
+                              modelDesc,modelUrl)"><span>Cập nhật </span></a> 
+                        </div>
+                    </div>
+                
+                </div>
+                
+    
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="modal fade" id="md1" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-green-jungle bg-font-green-jungle">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title text-bold text-center"> SỬA ĐỔI THÔNG TIN TIẾT HỌC</h4>
+            </div>
+            <div class="modal-body font-blue-dark">
+                <div class="portlet light no-padding margin-bottom-0">
+                 <div class="portlet-body form">
+                     <form role="form" name="fm1" ng-submit="updateClasses(classes_id_select,subject_name,bat_start,bat_end,bat_sale,bat_warn,bat_desc,bat_note)">
+                            <div class="form-group">
+                                <label class="text-bold">Tên môn học:<span class="required" ng-hide="fm1.subject_name.$valid"> * </span><i class="fa fa-check font-green-jungle" ng-show="fm1.subject_name.$valid"></i></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="subject_name" name="subject_name" placeholder="{{modelClassesSelected.subject_name}}" required> 
+                                   </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">                                                    		
+                                  <div class="form-group">
+                                      <label class="text-bold">Ngày diễn ra tiết học:</label>
+                                      <div class="input-group">
+                                          <span class="input-group-addon">
+                                              <i class="fa fa-font"></i>
+                                          </span>
+                                          <input type="text" class="form-control" ng-model="date" name="date" placeholder="{{modelClassesSelected.date}}"  ng-disabled="true" required> 
+                                         </div>
+                                  </div>
+                                </div>
+                                <!-- <div class="col-md-6"> 
+                              <div class="form-group">
+                                  <label class="text-bold">Ngày hết hạn:</label>
+                                  <div class="input-group">
+                                      <span class="input-group-addon">
+                                          <i class="fa fa-list"></i>
+                                      </span>
+                                      <input type="text" class="form-control form-control-inline date-picker" name="bat_end" ng-model="bat_end"
+                                      data-date-format="yyyy/mm/dd"> 
+                                     </div>
+                              </div> -->
+                                </div>
+                            </div>		
+                            <div class="form-group">
+                                <label class="text-bold">Tiết bắt đầu(Số tiết):</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="starting_block" ng-model="starting_block" placeholder="{{modelClassesSelected.starting_block}}({{modelClassesSelected.number_of_block}})"> 
+                                   </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-bold">Tên giảng viên:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="lecturer_name" ng-model="lecturer_name" placeholder="{{modelClassesSelected.Lecturer}}"> 
+                                   </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="text-bold">Thông tin chi tiết sản phẩm:<span class="required" ng-hide="fm1.bat_desc.$valid"> * </span><i class="fa fa-check font-green-jungle" ng-show="fm1.bat_desc.$valid"></i></label>
+                               
+
+                                <div text-angular ng-model="bat_desc" name="bat_desc"  required></div>	                                                        
+                            </div> -->
+                            <div class="form-group">
+                                <label class="text-bold">Lớp:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                    <textarea type="text" class="form-control" ng-model="class_id" placeholder="{{modelClassesSelected.class_id}}"></textarea> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-bold">Phòng học:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-font"></i>
+                                    </span>
+                                    <textarea type="text" class="form-control" ng-model="class_name" placeholder="{{modelClassesSelected.class_name}} - {{modelClassesSelected.building}}"></textarea> 
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="text-bold">Thay đổi ảnh đại diện khác:</label>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3">
+                                    <span class="fileinput-new"> Chọn file </span> 
+                                </div>
+                                <div class="col-md-8">	
+                                    <input type="file" id="updateFile">
+                                </div>	
+                            </div> -->
+                            
+                            <hr>
+                            <button type="button" data-dismiss="modal" class="btn dark btn-outline">Hủy</button>
+                            <!-- <button type="button" class="btn red btn-outline" data-toggle="modal" data-target="#md11">Xóa Sản Phẩm</button> -->
+                            <button type="submit" class="btn green-jungle btn-outline pull-right" ng-click=""><i class="fa fa-spinner fa-spin" ng-show="l20"></i> Cập Nhật</button>
+                        </form>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+	html, body {
+         margin: 0;
+         padding: 0;
+         font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+         font-size: 14px;
+     }
+
+     #calendar {
+         max-width: 1100px;
+         margin: 40px auto;
+     }
+
+     .fc-day-today {
+       background: #fadbd8  !important;
+       border: none !important;
+    }
+
+    .fc-unthemed .fc-today {
+     background: #fadbd8  !important;
+    }
+
+
+    html, body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+          font-size: 14px;
+        }
+
+        #calendar {
+          max-width: 68%;
+          margin: 40px auto;
+        }
+
+        .btn {
+          font-size:1.9em; 
+          
+        }
+
+
+        .s-lc-eq-avail, .label-eq-avail, .s-lc-eq-period-available {
+  background: #14951F linear-gradient(135deg, rgba(255,255,255,.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.2) 50%, rgba(255,255,255,.2) 75%, transparent 75%, transparent) !important;
+  border-color: #14951F !important;
+}       
+.s-lc-eq-pending, .label-eq-pending, .s-lc-eq-period-pending {
+  background: #F59F16 linear-gradient(45deg, rgba(255,255,255,.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.2) 50%, rgba(255,255,255,.2) 75%, transparent 75%, transparent) !important;
+  border-color: #F59F16 !important;
+}       
+.s-lc-eq-checkout, .s-lc-eq-r-unavailable, .s-lc-eq-r-padding, .label-eq-unavailable, .s-lc-eq-period-booked {
+  background: #C91908 linear-gradient(45deg, rgba(255,255,255,.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.2) 50%, rgba(255,255,255,.2) 75%, transparent 75%, transparent) !important;
+  border-color: #C91908 !important;
+}
+
+</style>
