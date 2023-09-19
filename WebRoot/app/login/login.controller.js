@@ -13,7 +13,7 @@ angular
     ];
     $scope.selectedLoginType = $scope.loginType[0];
    
-    var hostname = 'http://localhost:8080';
+    var hostname = 'http://eyecheck.vn:8080';
     // var hostname = 'https://ezfeedback.vn';
    
     $rootScope.user_type_id=0;
