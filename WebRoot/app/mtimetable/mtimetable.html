@@ -238,7 +238,7 @@
 							KẾT QUẢ:
 							<br>
 							<div ng-show="findRoomMode==false">
-								<table class="table table-bordered">
+								<!-- <table class="table table-bordered">
 								
 								<tr style="padding: 10px; border: 1px solid #33BEFF ">
 									<th style="background-color: #F2F3F4 " class="text-center bold">STT</th>
@@ -274,8 +274,91 @@
 	
 	
 								
-							</table>	
-							</div>
+							</table>	 -->
+							
+							<!-- dungnc - table-->
+							<table class="table table-bordered">
+								<thead>
+									<tr style="padding: 10px; border: 1px solid #ccc; ">
+										<th style="background-color : #F2F3F4;; " class="text-center bold"></th>
+										<th style="background-color: #F2F3F4 " class="text-center bold">Sáng</th>
+										<th style="background-color: #F2F3F4 " class="text-center bold">Chiều</th>
+										<th style="background-color: #F2F3F4 " class="text-center bold">Tối</th>
+									</tr>
+								</thead>
+	
+								<tbody>
+									<tr  ng-repeat="row in list_test"  ng-class="{ 'today-highlight': isToday(row.date) }">
+										<td style="vertical-align: middle!important; text-align: center;">
+											<ul style="padding-left: 0px">
+												<li class="list-unstyled bold">
+													{{row.id == 7 ? 'Chủ nhật' : 'Thứ ' + (row.id + 1)}}
+												</li>
+												<li class="list-unstyled bold">
+													({{row.date}})
+												</li>
+											</ul>
+										   
+										</td>
+										<td class="text-left">
+											<ul ng-repeat="item in getItemsByPeriod(row, 1)" style="margin-bottom: 20px; padding-left: 10px;">
+											  <li class="list-unstyled bold">- Môn học: {{ item.text }}</li>
+											  <li class="list-unstyled">-  Giảng viên: {{ item.lecturer }}</li>
+											  <li class="list-unstyled">- Tiết học: {{item.start_time}} - {{item.end_time}}</li>
+											</ul>
+										  </td>
+										  <td class="text-left">
+											<ul ng-repeat="item in getItemsByPeriod(row, 2)" style="margin-bottom: 20px; padding-left: 10px;">
+											  <li class="list-unstyled bold">- Môn học: {{ item.text }}</li>
+											  <li class="list-unstyled">- Giảng viên: {{ item.lecturer }}</li>
+											  <li class="list-unstyled">- Tiết học: {{item.start_time}} - {{item.end_time}}</li>
+											</ul>
+										  </td>
+										  <td class="text-left">
+											<ul ng-repeat="item in getItemsByPeriod(row, 3)" style="margin-bottom: 20px; padding-left: 10px;">
+											  <li class="list-unstyled bold">- Môn học: {{ item.text }}</li>
+											  <li class="list-unstyled">- Giảng viên: {{ item.lecturer }}</li>
+											  <li class="list-unstyled">- Tiết học: {{item.start_time}} - {{item.end_time}}</li>
+											</ul>
+										  </td>
+									</tr>
+								</tbody>
+	<!--                            
+								<tr ng-repeat="q in ">
+									
+									<td class="text-center">{{$index+1}}</td>
+									<td >
+										<div class="">{{q.user_name}}</div>
+									</td> -->
+									<!-- <td>
+										<div class="" >{{q.ten}}</div>
+									</td> -->
+									<!-- <td ng-repeat="t in q.schedule_week" > -->
+										<!-- <div class="" >
+											<span ng-repeat="t in q.schedule_week">
+												{{s}},
+											</span> 
+										</div> -->
+										<!-- <div ng-if="t.state !=0" class="" >{{t.area_info}}</div>
+										<div ng-if="t.state ==0" class="" ng-click = "updateSchedule(t.date,t.user_name,t.user_id,t.day_of_week)">{{t.area_info}}</div>
+									</td> -->
+									
+									<!-- <td>
+										<div class="" >{{q.seats}}</div>
+									</td> -->
+									<!-- <td>
+										<button type="button" ng-click="clickBookRoom(q)" 
+										class="btn btn-default btn-xs">booking</button>
+									</td> -->
+									
+								<!-- </tr> -->
+	
+	
+								
+							</table>
+							<!--  -->
+						</div>
+
 							<div ng-show="findRoomMode==true">
 								Danh sách phòng trống
 								<br>
@@ -518,3 +601,9 @@
 
    </div>
 </div>
+
+<style type="text/css">
+	.today-highlight {
+		background-color: #ccc;
+	}
+</style>

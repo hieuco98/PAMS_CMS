@@ -50,6 +50,121 @@ angular
         	}
         }
     });
+
+	//dungnc - table
+	$scope.list_test = [
+		{
+			id: 1,
+			date: '18-9-2023',
+			list: [
+			 {
+				text: 'Tiếng Anh',
+				period: 1,
+				end_time: '2',
+				start_time: '1',
+				lecturer: 'Phạm Thúy Hồng',
+			 },	
+			 {
+				text: 'Kinh te chinh tri',
+				period: 2,
+			 },
+       {
+				text: 'Thể chất',
+				period: 1,
+			 },
+			 {
+				text: 'Triet hoc Mac LeNin',
+				period: 3,
+			 }
+			]
+		},
+		{
+			id: 2,
+			date: '19-9-2023',
+			list: [
+        {
+          id: 1,
+          text: 'Toan CC',
+          period: 1,
+       },	
+       {
+          id: 2,
+          text: 'Lap trinh huong doi tuong',
+          period: 1,
+       },
+       {
+         id: 5,
+         text: 'Lap trinh huong doi tuong',
+         period: 2,
+        },
+       {
+          id: 3,
+          text: 'Ki nang tao lap van ban',
+          period: 3,
+       },
+       {
+         id: 4,
+         text: 'Vat li 1 va thi nghiem',
+         period: 3,
+        }
+      ]
+		},
+		{
+			id: 3,
+			date: '20-9-2023',
+			list: [
+			   ]
+		},
+		{
+			id: 4,
+			date: '21-9-2023',
+			list: []
+		},
+		{
+			id: 5,
+			date: '22-9-2023',
+			list: []
+		},
+		{
+			id: 6,
+			date: '23-9-2023',
+			list: []
+		},
+		{
+			id: 7,
+			date: '24-9-2023',
+			list: []
+		}
+	];
+	$scope.getItemsByPeriod = function (row, period) {
+        var items = [];
+        for (var i = 0; i < row.list.length; i++) {
+            if (row.list[i].period === period) {
+                items.push(row.list[i]);
+            }
+        }
+        return items;
+    };
+  	$scope.isToday = function(dateString) {
+      var today = new Date();
+      var dateParts = dateString.split('-'); // Tách ngày, tháng, năm từ chuỗi ngày-tháng-năm
+  
+      // Chuyển đổi thành số nguyên
+      var day = parseInt(dateParts[0], 10);
+      var month = parseInt(dateParts[1], 10) - 1; // Trừ đi 1 vì tháng trong JavaScript là 0-indexed
+      var year = parseInt(dateParts[2], 10);
+  
+      // Tạo đối tượng Date từ chuỗi ngày-tháng-năm
+      var itemDate = new Date(year, month, day);
+  
+      // So sánh ngày của itemDate với ngày hôm nay
+      return (
+          today.getDate() === itemDate.getDate() &&
+          today.getMonth() === itemDate.getMonth() &&
+          today.getFullYear() === itemDate.getFullYear()
+      );
+  	};
+
 	//================================================================================
 	(function initController() {
 		console.log("mTimetable initController");
